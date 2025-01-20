@@ -148,14 +148,16 @@ export default function LogInPage({ onSignUpClick }) {
 
     loadFacebookSDK()
       .then(() => {
-        if (window.FB) {
-          window.FB.init({
-            appId: "435169396230093", // Replace with your Facebook App ID
-            cookie: true,
-            xfbml: true,
-            version: "v15.0", // Use a valid Facebook Graph API version
-          });
-          console.log("Facebook SDK loaded and initialized");
+        if(typeof window !== undefined){
+          if (window.FB) {
+            window.FB.init({
+              appId: "435169396230093", // Replace with your Facebook App ID
+              cookie: true,
+              xfbml: true,
+              version: "v15.0", // Use a valid Facebook Graph API version
+            });
+            console.log("Facebook SDK loaded and initialized");
+          }
         }
       })
       .catch((err) => {
@@ -164,38 +166,39 @@ export default function LogInPage({ onSignUpClick }) {
   }, []);
 
   const handleFacebookLogin = () => {
-    if (!window.FB) {
-      console.error("Facebook SDK not loaded yet");
-      return;
+    if(typeof window !== undefined){
+      if (!window.FB) {
+        console.error("Facebook SDK not loaded yet");
+        return;
+      }
+      window.FB.login(
+        (response) => {
+          if (response.authResponse) {
+            const accessToken = response.authResponse.accessToken;
+  
+            // Use an immediately invoked function expression (IIFE) for async logic
+            console.log(accessToken)(async () => {
+              try {
+                const res = await axios.post(
+                  "http://localhost:5000/api/auth/facebook-login", // Replace with your backend endpoint
+                  { accessToken },
+                  { withCredentials: true }
+                );
+                console.log("Login successful:", res.data);
+              } catch (error) {
+                console.error(
+                  "Error during Facebook login:",
+                  error.response?.data || error.message
+                );
+              }
+            })();
+          } else {
+            console.error("User cancelled login or did not fully authorize.");
+          }
+        },
+        { scope: "email,public_profile" } // Request email and profile permissions
+      );
     }
-
-    window.FB.login(
-      (response) => {
-        if (response.authResponse) {
-          const accessToken = response.authResponse.accessToken;
-
-          // Use an immediately invoked function expression (IIFE) for async logic
-          console.log(accessToken)(async () => {
-            try {
-              const res = await axios.post(
-                "http://localhost:5000/api/auth/facebook-login", // Replace with your backend endpoint
-                { accessToken },
-                { withCredentials: true }
-              );
-              console.log("Login successful:", res.data);
-            } catch (error) {
-              console.error(
-                "Error during Facebook login:",
-                error.response?.data || error.message
-              );
-            }
-          })();
-        } else {
-          console.error("User cancelled login or did not fully authorize.");
-        }
-      },
-      { scope: "email,public_profile" } // Request email and profile permissions
-    );
   };
 
   return (
