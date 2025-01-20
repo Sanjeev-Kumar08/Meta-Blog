@@ -40,10 +40,11 @@ function SocialLoginAuthentication({ setServerError }) {
       }
 
       const data = await response.json();
-      if (data.success) {
+      console.log('data:::' , data);
+      if (data.success && data.token) {
         dispatch(
           logIn({
-            token: data?.tokens,
+            token: data?.token,
             userFound: data?.user,
           })
         );
@@ -132,10 +133,10 @@ function SocialLoginAuthentication({ setServerError }) {
 
                 const data = await res.json();
                 console.log("Login successful:", data);
-                if (data.message === "Login successful") {
+                if (data.message && data.token) {
                     dispatch(
                       logIn({
-                        token: data?.tokens,
+                        token: data?.token,
                         userFound: data?.user,
                       })
                     );
