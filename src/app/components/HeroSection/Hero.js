@@ -13,7 +13,7 @@ function Hero() {
         h-[240px]
       ">
         <div className="sm426:h-[600px] rounded-xl max-h-fit">
-          <img src="/image.svg" alt="title card" />
+          <img src="/Image.svg" alt="title card" />
         </div>
 
         <div className="
@@ -59,36 +59,6 @@ function Hero() {
         </div>
       </div>
     </div>
-
-
-
-    // <div className="flex justify-center items-center px-2 lg:mb-0 lg:h-[90vh] sm:mb-24 mb-10 pt-6">
-    //   <div className="w-[1216px] h-[664px] relative">
-    //     <div className="sm:w-full">
-    //       <img src="/image.svg" className="opacity-1" />
-    //     </div>
-
-    //     <div
-    //       className="dark:bg-[#212121] absolute sm:p-5 bg-[#FFFFFF] z-10 sm:bottom-[-80px] sm:left-10 text-white sm:h-35
-    // xl:w-[37vw] lg:w-[59%] md:w-[50%] border-boldTextcolor rounded-lg shadow-lg text-[10px] bottom-[-30px] left-10 font-worksans"
-    //     >
-    //       <div className="border-boldTextcolor flex flex-col gap-3 w-[49vw] sm:w-full rounded-[10px] p-[10px] justify-center">
-    //         <p className="bg-blue rounded-md w-[fit-content] px-2 py-1 sm:text-sm sm375:text-[10px] text-[8px] font-medium">
-    //           Technology
-    //         </p>
-    //         <p className="text-boldTextcolor sm375:text-[15px] md:text-[22px] lg:text-[36px] lg:leading-tight dark:text-white text-left text-[9px] font-semibold">
-    //           The Impact of Technology on the Workplace: How Technology is
-    //           Changing
-    //         </p>
-    //         <div className="text-[#97989F] flex items-center font-medium gl:text-[16px] lg:gap-[20px] text-center sm:text-[15px] sm375:gap-3 text-[7px] gap-2">
-    //           <img src="/userIcon.svg" className="h-[36px] w-[36px]" />
-    //           <p>Jason Francisco</p>
-    //           <p>August 20, 2022</p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
 

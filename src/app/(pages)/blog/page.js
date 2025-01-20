@@ -31,7 +31,7 @@ export default function page() {
           <div className="item-container w-full h-full object-cover relative">
             <img
               alt="Featured Image"
-              src="/image.svg"
+              src="/Image.svg"
               className="rounded-lg w-full h-full object-cover"
             />
             <div className="absolute max-w-full md:max-w-[49vw] z-10 border-black text-white bottom-0 left-0 sm375:px-6 sm375:py-4 py-2">
