@@ -14,7 +14,6 @@ export default function page({ params }) {
     (async () => {
       const { slug } = await params;
       setBlogId(slug);
-      console.log("Author slug is :::", slug);
     })();
   }, [params]);
 
@@ -34,11 +33,10 @@ export default function page({ params }) {
       const data = await response.json();
 
       if (data?.blog?.User) {
-        console.log("data exist");
         setUser(data.blog.User);
         setLoading(false);
       } else {
-        console.error("User data is missing in the API response");
+        console.log("User data is missing in the API response");
       }
     } catch (error) {
       console.error("Error fetching blog post+++", error.message);

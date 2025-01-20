@@ -6,35 +6,26 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { logIn } from "@/app/store/authSlice";
 import Input from "../../components/Input/Input";
-import GoogleButton from "../../components/Auth/Google";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleExclamation,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import SocialLoginAuthentication from "@/app/components/LogInButton/SocialLoginAuthentication";
 
 export default function LogInPage({ onSignUpClick }) {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   const [invalidUser, setInvalidUser] = useState(false);
   const [serverError, setServerError] = useState(false);
-  const router = useRouter();
   const [isLogging, setIsLogging] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
-  
-  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.google) {
-      window.google.accounts.id.initialize({
-        client_id: clientId,
-        callback: handleGoogleLoginSuccess,
-      });
-    }
-  }, [clientId]);
 
+  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
   const handleFormSubmmission = async (e) => {
     setIsLogging(true);
@@ -45,9 +36,8 @@ export default function LogInPage({ onSignUpClick }) {
       setIsLogging(false);
       setTimeout(() => {
         setInvalidPassword(false);
-      }, 5000)
-    } 
-    else {
+      }, 5000);
+    } else {
       try {
         const response = await fetch(
           "https://tunica-blogs-backend.onrender.com/api/auth/login",
@@ -90,136 +80,6 @@ export default function LogInPage({ onSignUpClick }) {
       }
     }
   };
-
-  // GOOGLE LOGIN
-  const handleGoogleLoginSuccess = async (credentialResponse) => {
-    const accessToken = credentialResponse?.access_token;
-
-    try {
-      const response = await fetch(
-        "https://tunica-blogs-backend.onrender.com/api/auth/google-login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ accessToken }),
-          credentials: "include",
-        }
-      );
-
-      if (response.error) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      if (data.success) {
-        console.log("LOGGED IN SUCCESSFULLY");
-        dispatch(
-          logIn({
-            token: data?.tokens,
-            userFound: data?.user,
-          })
-        );
-        router.push("/");
-      } else if (data.error === "Internal server error") {
-        setServerError(true);
-        setTimeout(() => {
-          setServerError(false);
-        }, 5000);
-      }
-      console.log("User details from backend:", data);
-    } catch (error) {
-      console.log("Error during login:", error.message || error);
-    }
-  };
-
-  const handleGoogleLoginFailure = (error) => {
-    console.log("Login failed:", error);
-  };
-
- // facebook login
-useEffect(() => {
-  const loadFacebookSDK = () => {
-    return new Promise((resolve, reject) => {
-      if (document.getElementById("facebook-jssdk")) {
-        resolve(); 
-        return;
-      }
-
-      const script = document.createElement("script");
-      script.id = "facebook-jssdk";
-      script.src = "https://connect.facebook.net/en_US/sdk.js";
-      script.onload = resolve;
-      script.onerror = () => reject(new Error("Failed to load Facebook SDK"));
-      document.body.appendChild(script);
-    });
-  };
-
-  loadFacebookSDK()
-    .then(() => {
-      if (typeof window !== undefined) {
-        if (window.FB) {
-          window.FB.init({
-            appId: "435169396230093",
-            cookie: true,
-            xfbml: true,
-            version: "v15.0", 
-          });
-          console.log("Facebook SDK loaded and initialized");
-        }
-      }
-    })
-    .catch((err) => {
-      console.error("Failed to load Facebook SDK:", err);
-    });
-}, []);
-
-const handleFacebookLogin = () => {
-  if (typeof window !== undefined) {
-    if (!window.FB) {
-      console.error("Facebook SDK not loaded yet");
-      return;
-    }
-    window.FB.login(
-      (response) => {
-        if (response.authResponse) {
-          const accessToken = response.authResponse.accessToken;
-
-          // Use fetch to send the access token
-          (async () => {
-            try {
-              const res = await fetch(
-                "https://tunica-blogs-backend.onrender.com/api/auth/facebook-login",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({ accessToken }),
-                  credentials: "include", // Ensures cookies are sent with the request
-                }
-              );
-
-              if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-              }
-
-              const data = await res.json();
-              console.log("Login successful:", data);
-            } catch (error) {
-              console.error("Error during Facebook login:", error.message);
-            }
-          })();
-        } else {
-          console.error("User cancelled login or did not fully authorize.");
-        }
-      },
-      { scope: "email,public_profile" } // Request email and profile permissions
-    );
-  }
-};
-
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
@@ -302,10 +162,16 @@ const handleFacebookLogin = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 name="password"
               />
-              <button aria-label="Forgot Password?" className="w-full text-[#1E4AE9] text-[16px] font-Roboto text-right">
+              <button
+                aria-label="Forgot Password?"
+                className="w-full text-[#1E4AE9] text-[16px] font-Roboto text-right"
+              >
                 Forgot Password?
               </button>
-              <button aria-label="Sign in" className="w-full bg-[#162D3A] dark:bg-blue text-center px-3 py-2 rounded-xl text-[#FFFFFF] text-[20px] font-Roboto">
+              <button
+                aria-label="Sign in"
+                className="w-full bg-[#162D3A] dark:bg-blue text-center px-3 py-2 rounded-xl text-[#FFFFFF] text-[20px] font-Roboto"
+              >
                 {isLogging ? (
                   <div className="flex items-center justify-center">
                     <div className="w-8 h-8 border-4 border-blue rounded-full animate-spin border-t-transparent"></div>
@@ -316,36 +182,21 @@ const handleFacebookLogin = () => {
               </button>
             </form>
 
-            <div className="sm426:max-w-[388px] w-full flex items-center my-4 font-Roboto break-words">
+            <div className="sm426:max-w-[388px] w-full sm426:w-full sm375:w-[360px] sm350:w-[320px] flex items-center my-4 font-Roboto break-words">
               <div className="w-full flex-grow border-t border-gray-300"> </div>
-              <span className="mx-3 text-[#294957] font-normal dark:text-white">
-                Or
+              <span className="min-w-fit mx-3 text-[#294957] font-normal dark:text-white hidden sm426:inline">
+                {" "}
+                Or{" "}
+              </span>
+              <span className="min-w-fit mx-3 text-[#294957] font-normal dark:text-white sm426:hidden">
+                {" "}
+                Or sign in with{" "}
               </span>
               <div className="w-full flex-grow border-t border-gray-300"> </div>
             </div>
 
             {/* Google and/ Facebook Buttons */}
-            <div className="max-w-[388px] w-full space-y-4 font-Roboto text-[16px] text-[#313957] sm350:px-0 px-2">
-              <GoogleButton
-                onLoginSuccess={handleGoogleLoginSuccess}
-                onLoginFailure={handleGoogleLoginFailure}
-              />
-              <div
-                onClick={handleFacebookLogin}
-                className="w-full flex justify-center items-center px-3 py-[9px] rounded-xl bg-[#F3F9FA] gap-4 cursor-pointer"
-              >
-                <img
-                  src="/Facebook.svg"
-                  alt="Google logo"
-                  className="w-[28px] h-[28px]"
-                />
-                <div className="flex flex-col">
-                  <p className="text-[#313957] font-normal">
-                    Sign in with Facebook
-                  </p>
-                </div>
-              </div>
-            </div>
+            <SocialLoginAuthentication setServerError={setServerError}/>
 
             <div className="font-Roboto text-[16px] mt-5 break-words">
               <p className="text-[#313957] dark:text-white">
@@ -360,7 +211,7 @@ const handleFacebookLogin = () => {
               </p>
             </div>
 
-            <p className="bottom-0 font-Roboto text-[16px] font-normal text-[#959CB6] break-words sm426:absolute">
+            <p className="sm426:mt-0 mt-8 bottom-0 font-Roboto text-[16px] font-normal text-[#959CB6] break-words sm426:absolute">
               © 2023 ALL RIGHTS RESERVED
             </p>
           </div>

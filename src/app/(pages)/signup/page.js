@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "@/app/store/authSlice";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import GoogleButton from "@/app/components/Auth/Google";
+import SocialLoginAuthentication from "@/app/components/LogInButton/SocialLoginAuthentication";
 
 export default function SignUpPage({ onLoginClick }) {
   const dispatch = useDispatch();
@@ -72,60 +72,6 @@ export default function SignUpPage({ onLoginClick }) {
       console.error("Request failed:", error);
     }
   };
-
-  // GOOGLE LOGIN
-  const handleLoginSuccess = async (credentialResponse) => {
-    // console.log("Credential response: ", credentialResponse);
-    const accessToken = credentialResponse?.access_token;
-
-    try {
-      const response = await fetch(
-        "https://tunica-blogs-backend.onrender.com/api/auth/google-login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ accessToken }),
-          credentials: "include",
-        }
-      );
-
-      if (response.error) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      if (!data.error) {
-        console.log("LOGGED IN SUCCESSFULLY");
-        dispatch(
-          logIn({
-            token: data?.tokens,
-            userFound: data?.user,
-          })
-        );
-        router.push("/");
-      } else if (data.error === "Internal server error") {
-        setServerError(true);
-        setTimeout(() => {
-          setServerError(false);
-        }, 5000);
-      }
-      console.log("User details from backend:", data);
-    } catch (error) {
-      console.log("Error during login:", error.message || error);
-    }
-  };
-
-  const handleLoginFailure = (error) => {
-    console.log("Login failed:", error);
-  };
-
-  const authStatus = useSelector((state) => state.auth.status);
-
-  useEffect(() => {
-    console.log("authStatus::: (login)", authStatus);
-  }, [authStatus]);
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
@@ -220,25 +166,7 @@ export default function SignUpPage({ onLoginClick }) {
           </div>
 
           {/* Google and Facebook Buttons */}
-          <div className="max-w-[388px] w-full space-y-4 font-Roboto text-[16px] text-[#313957] sm350:px-0 px-2">
-            <GoogleButton
-              onLoginSuccess={handleLoginSuccess}
-              onLoginFailure={handleLoginFailure}
-            />
-
-            <div className="w-full flex justify-center items-center px-3 py-[9px] rounded-xl bg-[#F3F9FA] gap-4 cursor-pointer">
-              <img
-                src="/Facebook.svg"
-                alt="Google logo"
-                className="w-[28px] h-[28px]"
-              />
-              <div className="flex flex-col">
-                <p className="text-[#313957] font-normal">
-                  Sign in with Facebook
-                </p>
-              </div>
-            </div>
-          </div>
+          <SocialLoginAuthentication/>
 
           <div className="font-Roboto text-[16px] mt-5 break-words">
             <p className="text-[#313957]">

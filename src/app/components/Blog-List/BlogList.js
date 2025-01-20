@@ -31,7 +31,6 @@ function BlogList() {
         const blogs = await response?.json();
         setBlogList(blogs);
         setsIsBlogList(true);
-        console.log("Fetched blogs:", blogs);
       } catch (error) {
         console.log("Error fetching blogs:", error?.message);
       }
