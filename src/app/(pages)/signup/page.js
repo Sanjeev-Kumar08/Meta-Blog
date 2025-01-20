@@ -26,9 +26,9 @@ export default function SignUpPage({ onLoginClick }) {
     e.preventDefault();
     setIsLogging(true);
 
-    console.log("Name", name);
-    console.log("Email", email);
-    console.log("Password", password);
+    // console.log("Name", name);
+    // console.log("Email", email);
+    // console.log("Password", password);
 
     try {
       const response = await fetch(

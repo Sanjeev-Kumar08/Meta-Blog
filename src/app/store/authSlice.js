@@ -1,11 +1,11 @@
-"use client"
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 const initialState = {
     status: false,
     userData : null,
-    token: localStorage.getItem("authToken") || null,
-    // expiryTime: localStorage.getItem("expiryTime") || null,
+    // token: localStorage.getItem("authToken") || null,
+    token: Cookies.get('authToken') || null
 }
 
 const authSlice = createSlice({
@@ -17,23 +17,17 @@ const authSlice = createSlice({
             state.status = true;
             const { token, userFound } = action.payload;
             state.token = token;
-            // state.expiryTime = expiryTime;
             state.userData = userFound;
-
-            // const expiryTime = Date.now() + data.expiresIn * 1000; 
-            localStorage.setItem("authToken", JSON.stringify(token));
-            // localStorage.setItem("expiryTime", JSON.stringify(expiryTime)); 
+            // localStorage.setItem("authToken", JSON.stringify(token));
+            Cookies.set('authToken', JSON.stringify(token))
         },
         //logOut
-        logOut : (state , action) => {
+        logOut : (state) => {
             state.status = false,
             state.userData = null,
             state.token = null;
-            // state.expiryTime = null;
-
-            // Clear localStorage
-            localStorage.removeItem("authToken");
-            // localStorage.removeItem("expiryTime");
+            Cookies.remove('authToken');
+            // localStorage.removeItem("authToken");
         }
     }
 })

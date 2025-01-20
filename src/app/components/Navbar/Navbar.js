@@ -14,6 +14,7 @@ import Link from "next/link";
 
 import "./Navbar.css";
 import { logOut } from "@/app/store/authSlice";
+import Cookies from "js-cookie";
 
 function Navbar({ onSignOut }) {
   const router = useRouter();
@@ -26,7 +27,8 @@ function Navbar({ onSignOut }) {
   const userLogInStatus = useSelector((state) => state.auth.status);
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    // const token = localStorage.getItem("authToken");
+    const token = Cookies.get("authToken");
     if (token !== null && token!=='undefined') {
       setIsLoggedIn(true);
     } else {
@@ -52,7 +54,8 @@ function Navbar({ onSignOut }) {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem("authToken");
+    // localStorage.removeItem("authToken");
+    Cookies.remove('authToken');
     setIsLoggedIn(false);
     dispatch(logOut());
     onSignOut(); 

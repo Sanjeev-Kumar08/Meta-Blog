@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import SignUpPage from "@/app/(pages)/signup/page";
 import { logOut } from "@/app/store/authSlice";
 import Loader from "../Loader/Loader";
+import Cookies from "js-cookie";
 
 function APP({ children }) {
   const router = useRouter();
@@ -19,7 +20,8 @@ function APP({ children }) {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const token = localStorage.getItem("authToken");
+      // const token = localStorage.getItem("authToken");
+      const token = Cookies.get('authToken');
       // console.log("Token:", token);
 
       if (token !== null && token!=='undefined') {

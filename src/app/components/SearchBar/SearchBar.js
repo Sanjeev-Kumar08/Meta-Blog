@@ -47,7 +47,6 @@ const SearchBar = () => {
           <img src="/search-outline.svg" alt="Search Icon" />
         </button>
       </div>
-      {/* left-[-6rem] w-[19.5rem] */}
       {query.trim() !== "" && (
         <div className="absolute top-full mt-2 sm500:left-[-15rem] sm500:w-[250%] sm426:w-full w-90vw bg-white border border-gray-300 rounded-md shadow-lg max-h-48 overflow-y-auto z-10 font-worksans">
           {filteredData.length > 0 ? (
