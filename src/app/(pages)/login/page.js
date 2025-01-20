@@ -138,78 +138,88 @@ export default function LogInPage({ onSignUpClick }) {
     console.log("Login failed:", error);
   };
 
-  // facebook login
-  useEffect(() => {
-    const loadFacebookSDK = () => {
-      return new Promise((resolve, reject) => {
-        if (document.getElementById("facebook-jssdk")) {
-          resolve(); 
-          return;
-        }
-
-        const script = document.createElement("script");
-        script.id = "facebook-jssdk";
-        script.src = "https://connect.facebook.net/en_US/sdk.js";
-        script.onload = resolve;
-        script.onerror = () => reject(new Error("Failed to load Facebook SDK"));
-        document.body.appendChild(script);
-      });
-    };
-
-    loadFacebookSDK()
-      .then(() => {
-        if(typeof window !== undefined){
-          if (window.FB) {
-            window.FB.init({
-              appId: "435169396230093",
-              cookie: true,
-              xfbml: true,
-              version: "v15.0", 
-            });
-            console.log("Facebook SDK loaded and initialized");
-          }
-        }
-      })
-      .catch((err) => {
-        console.error("Failed to load Facebook SDK:", err);
-      });
-  }, []);
-
-  const handleFacebookLogin = () => {
-    if(typeof window !== undefined){
-      if (!window.FB) {
-        console.error("Facebook SDK not loaded yet");
+ // facebook login
+useEffect(() => {
+  const loadFacebookSDK = () => {
+    return new Promise((resolve, reject) => {
+      if (document.getElementById("facebook-jssdk")) {
+        resolve(); 
         return;
       }
-      window.FB.login(
-        (response) => {
-          if (response.authResponse) {
-            const accessToken = response.authResponse.accessToken;
-  
-            // Use an immediately invoked function expression (IIFE) for async logic
-            (async () => {
-              try {
-                const res = await axios.post(
-                  "https://tunica-blogs-backend.onrender.com/api/auth/facebook-login", 
-                  { accessToken },
-                  { withCredentials: true }
-                );
-                console.log("Login successful:", res.data);
-              } catch (error) {
-                console.error(
-                  "Error during Facebook login:",
-                  error.response?.data || error.message
-                );
-              }
-            })();
-          } else {
-            console.error("User cancelled login or did not fully authorize.");
-          }
-        },
-        { scope: "email,public_profile" } // Request email and profile permissions
-      );
-    }
+
+      const script = document.createElement("script");
+      script.id = "facebook-jssdk";
+      script.src = "https://connect.facebook.net/en_US/sdk.js";
+      script.onload = resolve;
+      script.onerror = () => reject(new Error("Failed to load Facebook SDK"));
+      document.body.appendChild(script);
+    });
   };
+
+  loadFacebookSDK()
+    .then(() => {
+      if (typeof window !== undefined) {
+        if (window.FB) {
+          window.FB.init({
+            appId: "435169396230093",
+            cookie: true,
+            xfbml: true,
+            version: "v15.0", 
+          });
+          console.log("Facebook SDK loaded and initialized");
+        }
+      }
+    })
+    .catch((err) => {
+      console.error("Failed to load Facebook SDK:", err);
+    });
+}, []);
+
+const handleFacebookLogin = () => {
+  if (typeof window !== undefined) {
+    if (!window.FB) {
+      console.error("Facebook SDK not loaded yet");
+      return;
+    }
+    window.FB.login(
+      (response) => {
+        if (response.authResponse) {
+          const accessToken = response.authResponse.accessToken;
+
+          // Use fetch to send the access token
+          (async () => {
+            try {
+              const res = await fetch(
+                "https://tunica-blogs-backend.onrender.com/api/auth/facebook-login",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ accessToken }),
+                  credentials: "include", // Ensures cookies are sent with the request
+                }
+              );
+
+              if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+              }
+
+              const data = await res.json();
+              console.log("Login successful:", data);
+            } catch (error) {
+              console.error("Error during Facebook login:", error.message);
+            }
+          })();
+        } else {
+          console.error("User cancelled login or did not fully authorize.");
+        }
+      },
+      { scope: "email,public_profile" } // Request email and profile permissions
+    );
+  }
+};
+
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
