@@ -137,7 +137,7 @@ function SocialLoginAuthentication({ setServerError }) {
                     dispatch(
                       logIn({
                         token: data?.token,
-                        userFound: data?.user,
+                        userFound: data?.userData,
                       })
                     );
                     router.push("/");
