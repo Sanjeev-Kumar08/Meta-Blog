@@ -30,6 +30,7 @@ export default function page() {
         <div className="w-[1216px] h-[450px] flex justify-center items-center m-4 rounded-lg overflow-hidden mb-10 font-worksans">
           <div className="item-container w-full h-full object-cover relative">
             <img
+              alt="Featured Image"
               src="/image.svg"
               className="rounded-lg w-full h-full object-cover"
             />
@@ -44,6 +45,7 @@ export default function page() {
                 </p>
                 <div className="flex items-center text-center text-[16px] lg:gap-[20px] sm375:gap-[10px] gap-2">
                   <img
+                    alt="User Icon"
                     src="/userIcon.svg"
                     className="h-6 sm375:h-[36px] w-[36px]"
                   />

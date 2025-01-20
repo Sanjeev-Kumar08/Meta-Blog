@@ -200,7 +200,7 @@ export default function SignUpPage({ onLoginClick }) {
               onChange={(e) => setPassword(e.target.value)}
               name="password"
             />
-            <button className="w-full bg-[#162D3A] dark:bg-blue text-center px-3 py-2 rounded-xl text-[#FFFFFF] text-[20px] font-Roboto">
+            <button aria-label="Sign up" className="w-full bg-[#162D3A] dark:bg-blue text-center px-3 py-2 rounded-xl text-[#FFFFFF] text-[20px] font-Roboto">
               {isLogging ? (
                 <div className="flex items-center justify-center">
                   <div className="w-8 h-8 border-4 border-blue rounded-full animate-spin border-t-transparent"></div>

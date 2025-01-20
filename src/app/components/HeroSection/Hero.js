@@ -13,7 +13,7 @@ function Hero() {
         h-[240px]
       ">
         <div className="sm426:h-[600px] rounded-xl max-h-fit">
-          <img src="/image.svg" />
+          <img src="/image.svg" alt="title card" />
         </div>
 
         <div className="
@@ -50,7 +50,7 @@ function Hero() {
           </div>
           <div className="text-grey dark:text-grey sm:text-[16px] text-[11px] flex justify-center items-center w-fit gap-[20px]">
             <div className="flex justify-center items-center gap-[12px]">
-              <img src="/userIcon.svg" className="h-[36px] w-[36px]" />
+              <img alt="user image" src="/userIcon.svg" className="h-[36px] w-[36px]" />
               <p className="font-medium">Tracey Wilson</p>
             </div>
             <p className="font-normal">August 20, 2022</p>

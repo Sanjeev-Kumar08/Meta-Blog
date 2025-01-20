@@ -92,6 +92,7 @@ export default function ContactPage() {
             <div className="flex justify-center">
               <button
                 type="submit"
+                aria-label="Send Message"
                 className="px-6 py-3 bg-blue text-white rounded-lg hover:bg-blue-600 transition duration-300"
               >
                 Send Message

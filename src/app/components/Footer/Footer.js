@@ -66,11 +66,13 @@ export default function Footer() {
               />
               {/* Envelope Icon */}
               <img
+                alt="mailbox icon"
                 src="/mailboxIcon.svg"
                 className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
               />
             </div>
             <button
+            aria-label="Subscribe"
               type="submit"
               className="w-full bg-blue text-white py-2 rounded-md hover:bg-blue-700 transition"
             >
@@ -84,7 +86,7 @@ export default function Footer() {
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-center border-t border-gray-300 mt-8 pt-4 text-sm text-gray-500 dark:text-white font-PlusJakarta font-normal text-[16px]">
         <div className="flex justify-center items-center gap-2">
           <div>
-            <img src="/Union.svg" className="h-[45px] dark:bg-white rounded-3xl dark:border-none" />
+            <img alt="Meta Blog" src="/Union.svg" className="h-[45px] dark:bg-white rounded-3xl dark:border-none" />
           </div>
           <div className="flex flex-col">
             <p className="text-lg text-boldTextcolor dark:text-white text-[20px] font-normal">

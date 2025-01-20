@@ -187,7 +187,7 @@ export default function LogInPage({ onSignUpClick }) {
             const accessToken = response.authResponse.accessToken;
   
             // Use an immediately invoked function expression (IIFE) for async logic
-            console.log(accessToken)(async () => {
+            (async () => {
               try {
                 const res = await axios.post(
                   "http://localhost:5000/api/auth/facebook-login", // Replace with your backend endpoint
@@ -292,10 +292,10 @@ export default function LogInPage({ onSignUpClick }) {
                 onChange={(e) => setPassword(e.target.value)}
                 name="password"
               />
-              <button className="w-full text-[#1E4AE9] text-[16px] font-Roboto text-right">
+              <button aria-label="Forgot Password?" className="w-full text-[#1E4AE9] text-[16px] font-Roboto text-right">
                 Forgot Password?
               </button>
-              <button className="w-full bg-[#162D3A] dark:bg-blue text-center px-3 py-2 rounded-xl text-[#FFFFFF] text-[20px] font-Roboto">
+              <button aria-label="Sign in" className="w-full bg-[#162D3A] dark:bg-blue text-center px-3 py-2 rounded-xl text-[#FFFFFF] text-[20px] font-Roboto">
                 {isLogging ? (
                   <div className="flex items-center justify-center">
                     <div className="w-8 h-8 border-4 border-blue rounded-full animate-spin border-t-transparent"></div>
@@ -358,6 +358,7 @@ export default function LogInPage({ onSignUpClick }) {
           {/* Image */}
           <div className="sm426:h-[1076px] sm426:w-[48%] sm375:w-[360px] sm350:w-[320px] w-[300px] h-[180px] sm426:order-2 sm426:mt-0 order-1 mt-4">
             <img
+              alt="Art"
               src="/Art.svg"
               className="w-full h-full object-cover sm426:rounded-lg rounded-[20px]"
             />

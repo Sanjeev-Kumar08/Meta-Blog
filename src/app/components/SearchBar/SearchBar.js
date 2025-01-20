@@ -43,7 +43,7 @@ const SearchBar = () => {
           onChange={handleSearch}
           value={query}
         />
-        <button className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">
+        <button aria-label="Search" className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">
           <img src="/search-outline.svg" alt="Search Icon" />
         </button>
       </div>

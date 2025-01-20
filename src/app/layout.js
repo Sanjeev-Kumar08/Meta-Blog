@@ -5,7 +5,9 @@ import ReduxProvider from "./components/ReduxProvider/ReduxProvider";
 export default async function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head></head>
+      <head>
+      <title>Meta Blogs</title>
+      </head>
       <body>
         <ReduxProvider store={store} children={children}>
           {children}

@@ -85,6 +85,7 @@ function BlogList() {
           <div className="flex items-center justify-center">
             <div className="border border-[#696A754D] text-[#696A75] text-[16px] font-worksans font-medium inline-block rounded-lg hover:bg-gray-200 hover:border-gray-200 cursor-pointer">
               <button
+              aria-label="View Post"
                 className="h-[48px] w-[142px]"
                 onClick={() => loadMorePosts(pathName, blogList?.length)}
               >

@@ -19,6 +19,7 @@ export default function PostCard({
     >
       <div className="rounded-lg h-[240px] object-cover">
         <img
+          alt="featured image"
           src={featuredImage}
           className="rounded-md w-full h-full object-cover group-hover:scale-[1.03] transition-all duration-500"
         />
@@ -36,6 +37,7 @@ export default function PostCard({
         </div>
         <div className="text-[#97989F] flex items-center gap-[12px] text-center sm:text-[16px] font-worksans font-normal">
           <img
+            alt="user image"
             src={User?.profilePic}
             className="h-[36px] w-[36px] rounded-[28px]"
           />

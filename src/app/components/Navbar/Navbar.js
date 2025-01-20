@@ -168,6 +168,7 @@ function Navbar({ onSignOut }) {
             </div>
 
             <button
+            aria-label="Menu"
               className="lg:hidden text-2xl flex items-center mt-[-2px] rounded text-gray-600"
               onClick={toggleMobileMenu}
             >
@@ -184,7 +185,7 @@ function Navbar({ onSignOut }) {
               className="flex flex-col items-center justify-center px-2 md:flex-row gap-1 h-fit text-boldTextcolor font-PlusJakarta rounded-lg hover:bg-gray-100 transition duration-300 ease-in-out cursor-pointer dark:text-white dark:hover:text-boldTextcolor ml-2 lg:ml-0"
               onClick={handleSignOut}
             >
-              <button className="hidden pr-1 py-2 border-none rounded-md md769:flex gap-2">
+              <button aria-label="Sign Out" className="hidden pr-1 py-2 border-none rounded-md md769:flex gap-2">
                 Sign Out
               </button>
               <FontAwesomeIcon icon={faRightFromBracket} className="text-xl lg:text-[14px]"/>

@@ -82,6 +82,7 @@ export default function page({ params }) {
           >
             <div className="flex justify-center items-center gap-[8px]">
               <img
+                alt="user image"
                 src={blog.User.profilePic}
                 className="h-[28px] w-[28px] rounded-[28px]"
               />
@@ -93,6 +94,7 @@ export default function page({ params }) {
           {/* Feature Image Container */}
           <div className="h-[462px]">
             <img
+              alt="blog image"
               src={blog.image}
               className="w-full h-full object-cover rounded-xl"
             />
@@ -115,6 +117,7 @@ export default function page({ params }) {
                 {subBlog.images ? (
                   <div className="h-[462px]">
                     <img
+                      alt="image"
                       src={subBlog.images[index]}
                       className="w-full h-full object-cover rounded-xl"
                     />
