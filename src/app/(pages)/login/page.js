@@ -30,7 +30,7 @@ export default function LogInPage({ onSignUpClick }) {
     if (typeof window !== "undefined" && window.google) {
       window.google.accounts.id.initialize({
         client_id: clientId,
-        callback: handleCredentialResponse,
+        callback: handleGoogleLoginSuccess,
       });
     }
   }, [clientId]);
@@ -92,7 +92,7 @@ export default function LogInPage({ onSignUpClick }) {
   };
 
   // GOOGLE LOGIN
-  const handleLoginSuccess = async (credentialResponse) => {
+  const handleGoogleLoginSuccess = async (credentialResponse) => {
     const accessToken = credentialResponse?.access_token;
 
     try {
@@ -134,7 +134,7 @@ export default function LogInPage({ onSignUpClick }) {
     }
   };
 
-  const handleLoginFailure = (error) => {
+  const handleGoogleLoginFailure = (error) => {
     console.log("Login failed:", error);
   };
 
@@ -317,8 +317,8 @@ export default function LogInPage({ onSignUpClick }) {
             {/* Google and/ Facebook Buttons */}
             <div className="max-w-[388px] w-full space-y-4 font-Roboto text-[16px] text-[#313957] sm350:px-0 px-2">
               <GoogleButton
-                onLoginSuccess={handleLoginSuccess}
-                onLoginFailure={handleLoginFailure}
+                onLoginSuccess={handleGoogleLoginSuccess}
+                onLoginFailure={handleGoogleLoginFailure}
               />
               <div
                 onClick={handleFacebookLogin}
