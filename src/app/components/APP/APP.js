@@ -20,11 +20,9 @@ function APP({ children }) {
 
   useEffect(() => {
     const checkAuth = async () => {
-      // const token = localStorage.getItem("authToken");
       const token = Cookies.get('authToken');
-      // console.log("Token:", token);
 
-      if (token !== null && token!=='undefined') {
+      if (token) {
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
@@ -37,6 +35,8 @@ function APP({ children }) {
   }, [userLogInStatus]);
 
   const handleSignOut = () => {
+    console.log("SignOut Clicked");
+    Cookies.remove('authToken');
     dispatch(logOut());
     setIsLoggedIn(false);
     router.push("/login"); 

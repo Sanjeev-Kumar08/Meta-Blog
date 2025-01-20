@@ -29,8 +29,9 @@ function Navbar({ onSignOut }) {
   useEffect(() => {
     // const token = localStorage.getItem("authToken");
     const token = Cookies.get("authToken");
-    if (token !== null && token!=='undefined') {
+    if (token) {
       setIsLoggedIn(true);
+      // console.log("LOGGED IN");
     } else {
       setIsLoggedIn(false);
       router.push("/login");
@@ -55,9 +56,9 @@ function Navbar({ onSignOut }) {
 
   const handleSignOut = () => {
     // localStorage.removeItem("authToken");
-    Cookies.remove('authToken');
+    // Cookies.remove('authToken');
     setIsLoggedIn(false);
-    dispatch(logOut());
+    // dispatch(logOut());
     onSignOut(); 
   };
 
