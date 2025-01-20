@@ -190,7 +190,7 @@ export default function LogInPage({ onSignUpClick }) {
             (async () => {
               try {
                 const res = await axios.post(
-                  "http://localhost:5000/api/auth/facebook-login", // Replace with your backend endpoint
+                  "https://tunica-blogs-backend.onrender.com/api/auth/facebook-login", 
                   { accessToken },
                   { withCredentials: true }
                 );
