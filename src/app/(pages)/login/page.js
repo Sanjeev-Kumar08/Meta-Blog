@@ -24,7 +24,17 @@ export default function LogInPage({ onSignUpClick }) {
   const router = useRouter();
   const [isLogging, setIsLogging] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
+  
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.google) {
+      window.google.accounts.id.initialize({
+        client_id: clientId,
+        callback: handleCredentialResponse,
+      });
+    }
+  }, [clientId]);
+
 
   const handleFormSubmmission = async (e) => {
     setIsLogging(true);
@@ -133,7 +143,7 @@ export default function LogInPage({ onSignUpClick }) {
     const loadFacebookSDK = () => {
       return new Promise((resolve, reject) => {
         if (document.getElementById("facebook-jssdk")) {
-          resolve(); // SDK already loaded
+          resolve(); 
           return;
         }
 
@@ -151,10 +161,10 @@ export default function LogInPage({ onSignUpClick }) {
         if(typeof window !== undefined){
           if (window.FB) {
             window.FB.init({
-              appId: "435169396230093", // Replace with your Facebook App ID
+              appId: "435169396230093",
               cookie: true,
               xfbml: true,
-              version: "v15.0", // Use a valid Facebook Graph API version
+              version: "v15.0", 
             });
             console.log("Facebook SDK loaded and initialized");
           }
