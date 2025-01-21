@@ -56,35 +56,47 @@ function APP({ children }) {
   return (
     <>
       <Navbar onSignOut={handleSignOut} />
-      {isLoggedIn ? (
+      {isLoggedIn ? 
+      (
         <>
           {children}
           <Footer />
         </>
-      ) : activePage === "login" ? (
+      ) 
+      : activePage === "login" ? 
+      (
         <LogInPage
           onSignUpClick={() => handlePageChange("signup")}
           onForgotPasswordClick={() => handlePageChange("forgot-password")}
         />
-      ) : activePage === "signup" ? (
+      ) 
+      : activePage === "signup" ? 
+      (
         <SignUpPage
           onLoginClick={() => setActivePage("login")}
           onForgotPasswordClick={() => handlePageChange("forgot-password")}
         />
-      ) : activePage === "forgot-password" ? (
+      ) 
+      : activePage === "forgot-password" ? 
+      (
         <ForgotPasswordPage
           onLogInClick={() => setActivePage("login")}
           goToOtpVerificationPage={() => setActivePage("otp-verification")}
         />
-      ) : activePage === "otp-verification" ? (
+      ) 
+      : activePage === "otp-verification" ? 
+      (
         <OtpVerificationPage
           goToGeneratePasswordPage={() =>
             setActivePage("generate-new-password")
           }
         />
-      ) : activePage === "generate-new-password" ? (
+      ) 
+      : activePage === "generate-new-password" ? 
+      (
         <GenerateNewPasswordPage goToLogInPage={() => setActivePage("login")} />
-      ) : (
+      ) : 
+      (
         <LogInPage
           onSignUpClick={() => handlePageChange("signup")}
           onForgotPasswordClick={() => handlePageChange("forgot-password")}

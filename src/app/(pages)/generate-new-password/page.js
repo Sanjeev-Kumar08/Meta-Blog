@@ -19,7 +19,7 @@ export default function GenerateNewPasswordPage({ goToLogInPage }) {
       //   try {
       //     const response = await fetch("/api/generate-otp", {
       //       method: "POST",
-      //       credentials: "true",
+      //       credentials: "include",
       //       headers: {
       //         "Content-Type": "application/json",
       //       },

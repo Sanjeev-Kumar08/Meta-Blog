@@ -2,37 +2,44 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function ForgotPasswordPage({ onLogInClick, goToOtpVerificationPage }) {
+export default function ForgotPasswordPage({
+  onLogInClick,
+  goToOtpVerificationPage,
+}) {
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [isOtpRecieved, setIsOtpRecieved] = useState(true);
+  const [isOtpRecieved, setIsOtpRecieved] = useState(false);
   const [OTP, setOTP] = useState(null);
 
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   const response = await fetch("api/forgot-password", {
-    //     method: "POST",
-    //     credentials: "true",
-    //     body: { email },
-    //   });
-
-    //   // Handle response
-    //   if (response.ok) {
-    //     const data = await response.json();
-    //     if (data.message == "OTP SENT SUCCESSFULLY") {
-    //       setIsOtpRecieved(true);
-    //     }
-    //   }
-    // } catch (error) {
-    //   console.error("ERROR:", error);
-    // } finally {
-    //   if (isOtpRecieved) {
-    //     goToOtpVerificationPage();
-    //   }
-    // }
-    router.push("/otp-verification");
-    goToOtpVerificationPage();
+    try {
+      const response = await fetch(
+        "https://tunica-blogs-backend.onrender.com/api/forgetpassword/generate-otp",
+        {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            // credentials: "include",
+            body: JSON.stringify(email),
+          }
+      );
+      // Handle response
+      if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+        if (data.message == "OTP SENT SUCCESSFULLY") {
+          setIsOtpRecieved(true);
+        }
+      }
+    } catch (error) {
+      console.error("ERROR:", error);
+    } finally {
+      if (isOtpRecieved) {
+        goToOtpVerificationPage();
+      }
+    }
   };
 
   return (
@@ -55,7 +62,7 @@ export default function ForgotPasswordPage({ onLogInClick, goToOtpVerificationPa
               id="email"
               placeholder="Email Address"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
-            //   required
+                required
             />
           </div>
           <div className="mt-1">

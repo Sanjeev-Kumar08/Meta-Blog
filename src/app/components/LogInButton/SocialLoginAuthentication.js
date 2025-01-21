@@ -112,6 +112,7 @@ function SocialLoginAuthentication({ setServerError }) {
         (response) => {
           if (response.authResponse) {
             const accessToken = response.authResponse.accessToken;
+            console.log("response", response);
 
             // Use fetch to send the access token
             (async () => {

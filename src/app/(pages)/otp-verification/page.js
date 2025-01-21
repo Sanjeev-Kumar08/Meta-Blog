@@ -12,7 +12,7 @@ export default function OtpVerificationPage({ goToGeneratePasswordPage }) {
         // try {
         //     const response = await fetch("/api/verify-otp", {
         //         method: 'POST',
-        //         credentials: 'true',
+        //         credentials: 'include',
         //         headers: {
         //             "Content-Type" : 'application/json'
         //         },
