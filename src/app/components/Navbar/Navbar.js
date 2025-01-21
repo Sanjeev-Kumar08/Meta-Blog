@@ -112,7 +112,7 @@ function Navbar({ onSignOut }) {
                   Blog
                 </Link>
               </p>
-              <p className="inline">
+              {/* <p className="inline">
                 <Link
                   href={"/single-post"}
                   className={`${
@@ -123,8 +123,8 @@ function Navbar({ onSignOut }) {
                 >
                   Single Post
                 </Link>
-              </p>
-              <p className="inline">
+              </p> */}
+              {/* <p className="inline">
                 <Link
                   href={"/author-page"}
                   className={`${
@@ -135,7 +135,7 @@ function Navbar({ onSignOut }) {
                 >
                   Pages
                 </Link>
-              </p>
+              </p> */}
               <p className="inline">
                 <Link
                   href={"/contact"}

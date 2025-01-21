@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SocialLoginAuthentication from "@/app/components/LogInButton/SocialLoginAuthentication";
 
-export default function LogInPage({ onSignUpClick }) {
+export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -80,6 +80,11 @@ export default function LogInPage({ onSignUpClick }) {
       }
     }
   };
+
+  const handleForgotPassword = () => {
+    onForgotPasswordClick();
+    console.log("Forgot Password??");
+  }
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
@@ -162,14 +167,20 @@ export default function LogInPage({ onSignUpClick }) {
                 onChange={(e) => setPassword(e.target.value)}
                 name="password"
               />
+              <Link href={"/forgot-password"}>
               <button
                 aria-label="Forgot Password?"
                 className="w-full text-[#1E4AE9] text-[16px] font-Roboto text-right"
+                onClick={handleForgotPassword}
+                type="button"
               >
                 Forgot Password?
               </button>
+              </Link>
+              
               <button
                 aria-label="Sign in"
+                type="submit"
                 className="w-full bg-[#162D3A] dark:bg-blue text-center px-3 py-2 rounded-xl text-[#FFFFFF] text-[20px] font-Roboto"
               >
                 {isLogging ? (

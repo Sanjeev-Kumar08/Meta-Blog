@@ -87,7 +87,8 @@ function SocialLoginAuthentication({ setServerError }) {
         if (typeof window !== undefined) {
           if (window.FB) {
             window.FB.init({
-              appId: "435169396230093",
+              // appId: "435169396230093",
+              appId: "1314511789882590",
               cookie: true,
               xfbml: true,
               version: "v15.0",
@@ -116,7 +117,7 @@ function SocialLoginAuthentication({ setServerError }) {
             (async () => {
               try {
                 const res = await fetch(
-                  "https://tunica-blogs-backend.onrender.com/api/auth/facebook-login",
+                  "https://tunica-project.onrender.com/api/auth/facebook-login",
                   {
                     method: "POST",
                     headers: {

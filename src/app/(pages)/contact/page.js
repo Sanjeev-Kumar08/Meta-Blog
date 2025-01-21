@@ -1,15 +1,50 @@
-"use client"
+"use client";
+import Input from "@/app/components/Input/Input";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleExclamation,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function ContactPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [messageSending, setMessageSending] = useState(false);
+  const [isMessageSent, setIsMessageSent] = useState(false);
+  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here, like sending the form data to an API
-    console.log("Form submitted:", { name, email, message });
+    setName("");
+    setEmail("");
+    setMessage("");
+    setMessageSending(true);
+    const data = { name, email, message };
+    console.log("Form submitted:", data);
+
+    try {
+      const response = await fetch("api/send-message", {
+        method: "POST",
+        credentials: "true",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: { data },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setIsMessageSent(true);
+        setMessageSending(false);
+        setTimeout(()=>{
+          setIsMessageSent(false);
+        }, 5000)
+      }
+    } catch (error) {
+      console.error("ERROR:", response.statusText);
+    }
   };
 
   return (
@@ -24,7 +59,24 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8">  
+          {/* Invalid Password */}
+
+          {isMessageSent ? (
+            <div className="flex justify-center items-center">
+              <div
+                className="max-w-fit flex items-center justify-center gap-2 font-worksans p-3 text-sm text-green-800 bg-green-100 border border-green-300 rounded-lg"
+                role="alert"
+              >
+                <p>Message Sent Successfully.</p>
+                <FontAwesomeIcon
+                  icon={faXmark}
+                  onClick={() => setIsMessageSent(false)}
+                  className="cursor-pointer mt-[1px]"
+                />
+              </div>
+            </div>
+          ) : null}
           <form
             onSubmit={handleSubmit}
             className="max-w-4xl mx-auto bg-white dark:bg-[#383838]  p-8 rounded-lg shadow-md space-y-6"
@@ -91,13 +143,27 @@ export default function ContactPage() {
             {/* Submit Button */}
             <div className="flex justify-center">
               <button
+                aria-label="Sign in"
+                className="w-full bg-[#162D3A] dark:bg-blue text-center px-3 py-2 rounded-xl text-[#FFFFFF] text-[20px] font-Roboto"
+              >
+                {messageSending ? (
+                  <div className="flex items-center justify-center">
+                    <div className="w-8 h-8 border-4 border-blue rounded-full animate-spin border-t-transparent"></div>
+                  </div>
+                ) : (
+                  "Send Message"
+                )}
+              </button>
+            </div>
+            {/* <div className="flex justify-center">
+              <button
                 type="submit"
                 aria-label="Send Message"
                 className="px-6 py-3 bg-blue text-white rounded-lg hover:bg-blue-600 transition duration-300"
               >
                 Send Message
               </button>
-            </div>
+            </div> */}
           </form>
         </div>
 
@@ -113,7 +179,9 @@ export default function ContactPage() {
             <p className="text-lg text-gray-800 dark:text-[#ffffff]">
               📧 Email: abc@gmail.com
             </p>
-            <p className="text-lg text-gray-800 dark:text-[#ffffff]">📞 Phone: +1 234 567 890</p>
+            <p className="text-lg text-gray-800 dark:text-[#ffffff]">
+              📞 Phone: +1 234 567 890
+            </p>
             <p className="text-lg text-gray-800 dark:text-[#ffffff]">
               📍 Address: Sunny Side Park, Solan, India
             </p>
