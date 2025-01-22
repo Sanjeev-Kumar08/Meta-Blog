@@ -8,6 +8,7 @@ export default async function RootLayout({ children }) {
       <head>
       <title>Meta Blog</title>
       <link rel="icon" href="/Union.svg"></link>
+      <link rel="preload"></link>
       </head>
       <body>
         <ReduxProvider store={store} children={children}>
@@ -19,6 +20,7 @@ export default async function RootLayout({ children }) {
         defer
         crossOrigin="anonymous"
         src="https://connect.facebook.net/en_US/sdk.js"
+        
       ></script>
     </html>
   );
