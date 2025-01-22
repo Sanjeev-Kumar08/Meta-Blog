@@ -7,6 +7,7 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <head>
       <title>Meta Blogs</title>
+      <link rel="icon" href="/Union.svg"></link>
       </head>
       <body>
         <ReduxProvider store={store} children={children}>
