@@ -12,6 +12,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import SocialLoginAuthentication from "@/app/components/LogInButton/SocialLoginAuthentication";
+import Image from "next/image";
 
 export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
   const dispatch = useDispatch();
@@ -227,12 +228,14 @@ export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
           </div>
 
           {/* Image */}
-          <div className="sm426:h-[1076px] sm426:w-[48%] sm375:w-[360px] sm350:w-[320px] w-[300px] h-[180px] sm426:order-2 sm426:mt-0 order-1 mt-4">
-            <img
-              alt="Art"
-              src="/Art.svg"
-              className="w-full h-full object-cover sm426:rounded-lg rounded-[20px]"
-            />
+          <div className="sm426:h-[1076px] sm426:w-[48%] sm375:w-[360px] sm350:w-[320px] w-[300px] h-[180px] sm426:order-2 sm426:mt-0 order-1 mt-4 relative">
+          <Image
+            src="/Art.svg"
+            fill
+            alt ="Art"
+            className="object-cover sm426:rounded-lg rounded-[20px]"
+            priority
+          />
           </div>
         </div>
       </section>
