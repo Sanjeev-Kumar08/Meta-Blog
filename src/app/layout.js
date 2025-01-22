@@ -6,7 +6,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-      <title>Meta Blogs</title>
+      <title>Meta Blog</title>
       <link rel="icon" href="/Union.svg"></link>
       </head>
       <body>
