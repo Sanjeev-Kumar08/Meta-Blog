@@ -198,6 +198,7 @@ export default function SignUpPage({ onLoginClick }) {
               alt="Art"
               className="object-cover sm426:rounded-[24px]  rounded-[20px]"
               priority
+              quality={50}
             />
           </div>
         </div>
