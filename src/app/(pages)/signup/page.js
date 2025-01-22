@@ -9,7 +9,6 @@ import { logIn } from "@/app/store/authSlice";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SocialLoginAuthentication from "@/app/components/LogInButton/SocialLoginAuthentication";
-import Art from "@/app/components/Art";
 
 export default function SignUpPage({ onLoginClick }) {
   const dispatch = useDispatch();
@@ -188,7 +187,14 @@ export default function SignUpPage({ onLoginClick }) {
         </div>
 
         {/* Image */}
-        <Art/>
+        {/* <Art/> */}
+        <div className="sm426:h-[1076px] sm426:w-[48%] sm375:w-[360px] sm350:w-[320px] w-[300px] h-[180px] bg-white sm426:order-2 sm426:mt-0 order-1 mt-4">
+          <img
+            fetchpriority="high"
+            src="/Art.svg"
+            className="w-full h-full object-cover sm426:rounded-lg rounded-[20px]"
+          />
+        </div>
       </div>
     </section>
     </GoogleOAuthProvider>
