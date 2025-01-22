@@ -12,7 +12,6 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import SocialLoginAuthentication from "@/app/components/LogInButton/SocialLoginAuthentication";
-import Art from "@/app/components/Art";
 
 export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
   const dispatch = useDispatch();
@@ -235,7 +234,6 @@ export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
               className="w-full h-full object-cover sm426:rounded-lg rounded-[20px]"
             />
           </div>
-          {/* <Art/> */}
         </div>
       </section>
     </GoogleOAuthProvider>
