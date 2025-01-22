@@ -1,10 +1,10 @@
 "use client";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Input from "../../components/Input/Input";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logIn } from "@/app/store/authSlice";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
