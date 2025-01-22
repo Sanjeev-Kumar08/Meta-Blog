@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 function Hero() {
@@ -13,7 +14,8 @@ function Hero() {
         h-[240px]
       ">
         <div className="sm426:h-[600px] rounded-xl max-h-fit">
-          <img src="/Image.svg" alt="title card" />
+          <Image src="/Image.svg" alt="title card" height={600} width={1216}/>
+          {/* <img src="/Image.svg" alt="title card" /> */}
         </div>
 
         <div className="

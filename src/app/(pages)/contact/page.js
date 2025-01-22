@@ -101,7 +101,7 @@ export default function ContactPage() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  // required
+                  required
                   className="dark:bg-slate-700 dark:border-slate-700 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue focus:border-transparent"
                   placeholder="Enter your name"
                 />
@@ -120,7 +120,7 @@ export default function ContactPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  // required
+                  required
                   className="dark:bg-slate-700 dark:border-slate-700 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue focus:border-transparent"
                   placeholder="Enter your email"
                 />
@@ -139,7 +139,7 @@ export default function ContactPage() {
                 id="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                // required
+                required
                 className="dark:bg-slate-700 dark:border-slate-700 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue focus:border-transparent"
                 rows="6"
                 placeholder="Write your message here"

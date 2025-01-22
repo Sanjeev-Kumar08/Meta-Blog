@@ -4,17 +4,22 @@ import PostCard from "../PostCard/PostCard";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Loader from "../Loader/Loader";
-import { useDispatch } from "react-redux";
-import { logOut } from "@/app/store/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setBlogPosts } from "@/app/store/blogPostsSlice";
 
 function BlogList() {
   const router = useRouter();
   const pathName = usePathname();
   const dispatch = useDispatch();
+
   const [visiblePosts, setVisiblePosts] = useState(6);
-  const [blogList, setBlogList] = useState([]);
-  const [isBlogList, setsIsBlogList] = useState(false);
-  
+
+  const isBlogsAvailable = useSelector(
+    (state) => state.reduxBlogPosts.blogsAlreadyExist
+  );
+  const blogs = useSelector((state) => state.reduxBlogPosts.blogs);
+
+  console.log("isBlogsAvailable", isBlogsAvailable);
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -27,23 +32,20 @@ function BlogList() {
           }
         );
         if (!response.ok) {
-          // if jwt is expired, log out the user...
-          if(response.status === 401){
-            dispatch(logOut());
-          }
-          else throw new Error(
-            `Failed to fetch data: ${response.status}`
+          throw new Error(
+            `Failed to fetch data: ${response.status} ${response.statusText}`
           );
         }
         const blogs = await response?.json();
-        setBlogList(blogs);
-        setsIsBlogList(true);
+        dispatch(setBlogPosts(blogs)); // send all blogs to redux
       } catch (error) {
         console.log("Error fetching blogs:", error?.message);
       }
     };
 
-    fetchBlogs();
+    if (!isBlogsAvailable) {
+      fetchBlogs();
+    }
   }, []);
 
   const loadMorePosts = (pathName, length) => {
@@ -58,8 +60,12 @@ function BlogList() {
     router.push(`/single-post/${id}`);
   };
 
-  if(!isBlogList){
-    return <Loader/>
+  if (!isBlogsAvailable) {
+    return (
+      <>
+        <Loader source={"blogList"} className={""}/>
+      </>
+    );
   }
   return (
     <section
@@ -73,7 +79,7 @@ function BlogList() {
         </h3>
         <div className="flex flex-col gap-6 ">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 place-items-center p-2">
-            {blogList?.slice(0, visiblePosts).map((blog) => {
+            {blogs?.slice(0, visiblePosts).map((blog) => {
               return (
                 <PostCard
                   key={blog.id}
@@ -91,9 +97,9 @@ function BlogList() {
           <div className="flex items-center justify-center">
             <div className="border border-[#696A754D] text-[#696A75] text-[16px] font-worksans font-medium inline-block rounded-lg hover:bg-gray-200 hover:border-gray-200 cursor-pointer">
               <button
-              aria-label="View Post"
+                aria-label="View Post"
                 className="h-[48px] w-[142px]"
-                onClick={() => loadMorePosts(pathName, blogList?.length)}
+                onClick={() => loadMorePosts(pathName, blogs?.length)}
               >
                 {pathName === "/" ? "View All Post" : "Load More"}
               </button>

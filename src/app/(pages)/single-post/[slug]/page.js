@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "@/app/components/Loader/Loader";
+import Image from "next/image";
+import Link from "next/link";
 
 
 export default function page({ params }) {
@@ -39,6 +41,7 @@ export default function page({ params }) {
         );
       }
       const data = await response.json();
+      console.log('DATA+++',data);
       setBlog(data.blog);
       setBlogContent(data.blog.insideContent);
       setLoading(false);
@@ -85,6 +88,8 @@ export default function page({ params }) {
                 alt="user image"
                 src={blog.User.profilePic}
                 className="h-[28px] w-[28px] rounded-[28px]"
+                // height={50}
+                // width={50}
               />
               <p>{blog.User.name}</p>
             </div>
@@ -93,10 +98,12 @@ export default function page({ params }) {
 
           {/* Feature Image Container */}
           <div className="h-[462px]">
-            <img
+            <Image
               alt="blog image"
               src={blog.image}
               className="w-full h-full object-cover rounded-xl"
+              width={600}  
+              height={600}
             />
           </div>
         </div>
@@ -116,10 +123,12 @@ export default function page({ params }) {
                 ) : null}
                 {subBlog.images ? (
                   <div className="h-[462px]">
-                    <img
+                    <Image
                       alt="image"
                       src={subBlog.images[index]}
                       className="w-full h-full object-cover rounded-xl"
+                      width={600}  
+                      height={600}
                     />
                   </div>
                 ) : null}

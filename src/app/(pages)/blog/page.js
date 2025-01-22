@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import BlogList from "@/app/components/Blog-List/BlogList";
+import Image from "next/image";
 
 export default function page() {
   return (
@@ -29,11 +30,12 @@ export default function page() {
       <div className="flex justify-center items-center">
         <div className="w-[1216px] h-[450px] flex justify-center items-center m-4 rounded-lg overflow-hidden mb-10 font-worksans">
           <div className="item-container w-full h-full object-cover relative">
-            <img
+          <Image src="/Image.svg" alt="title card" height={600} width={1216} className="rounded-lg object-cover"/>
+            {/* <img
               alt="Featured Image"
               src="/Image.svg"
               className="rounded-lg w-full h-full object-cover"
-            />
+            /> */}
             <div className="absolute max-w-full md:max-w-[49vw] z-10 border-black text-white bottom-0 left-0 sm375:px-6 sm375:py-4 py-2">
               <div className="border-black flex flex-col gap-3 w-full rounded-[10px] p-[10px] justify-center">
                 <p className="bg-blue rounded-md w-[fit-content] px-2 py-1 sm:text-[14px] sm375:text-[10px] text-[12px]">

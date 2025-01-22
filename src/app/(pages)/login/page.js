@@ -84,7 +84,7 @@ export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
 
   const handleForgotPassword = () => {
     onForgotPasswordClick();
-  }
+  };
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
@@ -168,16 +168,16 @@ export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
                 name="password"
               />
               <Link href={"/forgot-password"}>
-              <button
-                aria-label="Forgot Password?"
-                className="w-full text-[#1E4AE9] text-[16px] font-Roboto text-right"
-                onClick={handleForgotPassword}
-                type="button"
-              >
-                Forgot Password?
-              </button>
+                <button
+                  aria-label="Forgot Password?"
+                  className="w-full text-[#1E4AE9] text-[16px] font-Roboto text-right"
+                  onClick={handleForgotPassword}
+                  type="button"
+                >
+                  Forgot Password?
+                </button>
               </Link>
-              
+
               <button
                 aria-label="Sign in"
                 type="submit"
@@ -207,7 +207,7 @@ export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
             </div>
 
             {/* Google and/ Facebook Buttons */}
-            <SocialLoginAuthentication setServerError={setServerError}/>
+            <SocialLoginAuthentication setServerError={setServerError} />
 
             <div className="font-Roboto text-[16px] mt-5 break-words">
               <p className="text-[#313957] dark:text-white">
@@ -228,14 +228,14 @@ export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
           </div>
 
           {/* Image */}
-          <div className="sm426:h-[1076px] sm426:w-[48%] sm375:w-[360px] sm350:w-[320px] w-[300px] h-[180px] sm426:order-2 sm426:mt-0 order-1 mt-4 relative">
-          <Image
-            src="/Art.svg"
-            fill
-            alt ="Art"
-            className="object-cover sm426:rounded-lg rounded-[20px]"
-            priority
-          />
+          <div className="sm426:h-[1076px] sm426:w-[48%] sm375:w-[360px] sm350:w-[320px] w-[300px] h-[180px] bg-white sm426:order-2 sm426:mt-0 order-1 mt-4 relative">
+            <Image
+              src="/Login-Art.png"
+              fill
+              alt="Art"
+              className="object-cover sm426:rounded-[24px] rounded-[20px]"
+              priority
+            />
           </div>
         </div>
       </section>

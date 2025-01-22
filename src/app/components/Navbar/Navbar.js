@@ -14,6 +14,7 @@ import Link from "next/link";
 
 import "./Navbar.css";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 function Navbar({ onSignOut, className }) {
   const router = useRouter();
@@ -64,10 +65,12 @@ function Navbar({ onSignOut, className }) {
           {/* Logo */}
           <Link href={"/"} className={`flex-1 lg:flex-grow-0`}>
             <div className="flex items-center gap-1 text-xl h-full">
-              <img
+              <Image
                 src="/Union.svg"
                 alt="Logo"
                 className="h-8 w-8 dark:bg-white rounded-3xl dark:border-none"
+                height={20}
+                width={20}
               />
               <span className="hidden sm500:block text-[#141624] dark:text-white tracking-wide font-sans">
                 Meta

@@ -3,6 +3,7 @@ import BlogList from "@/app/components/Blog-List/BlogList";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Loader from "@/app/components/Loader/Loader";
+import Image from "next/image";
 
 export default function page({ params }) {
   const [blogId, setBlogId] = useState(null);
@@ -58,11 +59,13 @@ export default function page({ params }) {
           <div className="w-full max-w-[668px] h-auto flex flex-col justify-center items-center gap-[24px] text-center">
             <div className="flex justify-center items-center gap-[16px]">
               <div>
-                <img
+                <Image
                   // src="/userIcon.svg"
                   src={user?.profilePic}
-                  className="h-[64px] w-[64px] object-contain rounded-full"
+                  className="object-contain rounded-full"
                   alt="User Icon"
+                  height={64}
+                  width={64}
                 />
               </div>
               <div className="font-worksans text-center">
@@ -93,7 +96,7 @@ export default function page({ params }) {
                 }
               >
                 <div className="h-[32px] w-[32px] bg-grey rounded-md flex justify-center items-center cursor-pointer">
-                  <img src="/logo-facebook.svg" alt="Facebook Logo" />
+                  <Image src="/logo-facebook.svg" alt="Facebook Logo" width={16} height={12}/>
                 </div>
               </Link>
               <Link
@@ -102,7 +105,7 @@ export default function page({ params }) {
                 }
               >
                 <div className="h-[32px] w-[32px] bg-grey rounded-md flex justify-center items-center cursor-pointer">
-                  <img src="/logo-twitter.svg" alt="Twitter Logo" />
+                  <Image src="/logo-twitter.svg" alt="Twitter Logo" width={16} height={12}/>
                 </div>
               </Link>
 
@@ -114,7 +117,7 @@ export default function page({ params }) {
                 }
               >
                 <div className="h-[32px] w-[32px] bg-grey rounded-md flex justify-center items-center cursor-pointer">
-                  <img src="/logo-instagram.svg" alt="Instagram Logo" />
+                  <Image src="/logo-instagram.svg" alt="Instagram Logo" width={16} height={12}/>
                 </div>
               </Link>
 
@@ -124,7 +127,7 @@ export default function page({ params }) {
                 }
               >
                 <div className="h-[32px] w-[32px] bg-grey rounded-md flex justify-center items-center cursor-pointer">
-                  <img src="/logo-youtube.svg" alt="YouTube Logo" />
+                  <Image src="/logo-youtube.svg" alt="YouTube Logo" width={16} height={12}/>
                 </div>
               </Link>
             </div>
