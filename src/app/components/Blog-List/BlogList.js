@@ -4,10 +4,13 @@ import PostCard from "../PostCard/PostCard";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Loader from "../Loader/Loader";
+import { useDispatch } from "react-redux";
+import { logOut } from "@/app/store/authSlice";
 
 function BlogList() {
   const router = useRouter();
   const pathName = usePathname();
+  const dispatch = useDispatch();
   const [visiblePosts, setVisiblePosts] = useState(6);
   const [blogList, setBlogList] = useState([]);
   const [isBlogList, setsIsBlogList] = useState(false);
@@ -24,8 +27,12 @@ function BlogList() {
           }
         );
         if (!response.ok) {
-          throw new Error(
-            `Failed to fetch data: ${response.status} ${response.statusText}`
+          // if jwt is expired, log out the user...
+          if(response.status === 401){
+            dispatch(logOut());
+          }
+          else throw new Error(
+            `Failed to fetch data: ${response.status}`
           );
         }
         const blogs = await response?.json();

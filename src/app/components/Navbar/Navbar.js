@@ -13,13 +13,11 @@ import SearchBar from "../SearchBar/SearchBar";
 import Link from "next/link";
 
 import "./Navbar.css";
-import { logOut } from "@/app/store/authSlice";
 import Cookies from "js-cookie";
 
-function Navbar({ onSignOut }) {
+function Navbar({ onSignOut, className }) {
   const router = useRouter();
   const pathName = usePathname();
-  const dispatch = useDispatch();
   const [theme, setTheme] = useState("light");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
@@ -31,7 +29,6 @@ function Navbar({ onSignOut }) {
     const token = Cookies.get("authToken");
     if (token) {
       setIsLoggedIn(true);
-      // console.log("LOGGED IN");
     } else {
       setIsLoggedIn(false);
       router.push("/login");
@@ -55,15 +52,12 @@ function Navbar({ onSignOut }) {
   };
 
   const handleSignOut = () => {
-    // localStorage.removeItem("authToken");
-    // Cookies.remove('authToken');
     setIsLoggedIn(false);
-    // dispatch(logOut());
-    onSignOut(); 
+    onSignOut();
   };
 
   return (
-    <header className="flex justify-center items-center p-2">
+    <header className={`flex justify-center items-center p-2 ${className || ""}`}>
       {/* Navbar */}
       <nav className="dark:text-white w-[1216px]">
         <div className="flex items-center h-16 mb-3 justify-between">
@@ -123,8 +117,8 @@ function Navbar({ onSignOut }) {
                 >
                   Single Post
                 </Link>
-              </p> */}
-              {/* <p className="inline">
+              </p>
+              <p className="inline">
                 <Link
                   href={"/author-page"}
                   className={`${
@@ -168,14 +162,14 @@ function Navbar({ onSignOut }) {
             </div>
 
             <button
-            aria-label="Menu"
+              aria-label="Menu"
               className="lg:hidden text-2xl flex items-center mt-[-2px] rounded text-gray-600"
               onClick={toggleMobileMenu}
             >
               {isMobileMenuOpen ? (
-                <FontAwesomeIcon icon={faTimes} />
+                <FontAwesomeIcon icon={faTimes} className="dark:text-white" />
               ) : (
-                <FontAwesomeIcon icon={faBars} />
+                <FontAwesomeIcon icon={faBars} className="dark:text-white"/>
               )}
             </button>
           </div>
@@ -185,18 +179,24 @@ function Navbar({ onSignOut }) {
               className="flex flex-col items-center justify-center px-2 md:flex-row gap-1 h-fit text-boldTextcolor font-PlusJakarta rounded-lg hover:bg-gray-100 transition duration-300 ease-in-out cursor-pointer dark:text-white dark:hover:text-boldTextcolor ml-2 lg:ml-0"
               onClick={handleSignOut}
             >
-              <button aria-label="Sign Out" className="hidden pr-1 py-2 border-none rounded-md md769:flex gap-2">
+              <button
+                aria-label="Sign Out"
+                className="hidden pr-1 py-2 border-none rounded-md md769:flex gap-2"
+              >
                 Sign Out
               </button>
-              <FontAwesomeIcon icon={faRightFromBracket} className="text-xl lg:text-[14px]"/>
+              <FontAwesomeIcon
+                icon={faRightFromBracket}
+                className="text-xl lg:text-[14px]"
+              />
             </div>
           )}
         </div>
 
         {/* Mobile Navigation */}
         <div
-          className={`lg:hidden dark:bg-[#212121] bg-white px-4 py-2 mt-2 space-y-4 transition-all duration-500 z-20 min-h-screen absolute w-full top-12 right-0 dark:text-white font-worksans ${
-            isMobileMenuOpen ? "max-h-[300px] opacity-100" : "hidden"
+          className={`lg:hidden dark:bg-[#212121] bg-white px-4 py-2 mt-2 space-y-4 transition-all duration-[3s] z-20 min-h-screen absolute w-full top-14 right-0 dark:text-white font-worksans ${
+            isMobileMenuOpen ? "max-h-[300px]" : "hidden"
           }`}
         >
           <p className="border-b-2 border-gray-300 flex justify-between items-center">
@@ -206,15 +206,16 @@ function Navbar({ onSignOut }) {
                 pathName === "/"
                   ? "text-blue"
                   : "text-boldTextcolor dark:text-white"
-              } hover:text-blue dark:hover:text-blue transition`}
+              } hover:text-blue dark:hover:text-blue transition flex w-full justify-between items-center`}
               onClick={() => navigateToUrl("/")}
             >
-              Home
+              <span>Home</span>
+              <span>
+                <FontAwesomeIcon icon={faArrowRight} />
+              </span>
             </Link>
-            <span className="ml">
-              <FontAwesomeIcon icon={faArrowRight} />
-            </span>{" "}
           </p>
+
           <p className="border-b-2 border-gray-300 flex justify-between items-center">
             <Link
               href={"/blog"}
@@ -222,31 +223,33 @@ function Navbar({ onSignOut }) {
                 pathName === "/blog"
                   ? "text-blue"
                   : "text-boldTextcolor dark:text-white"
-              } hover:text-blue dark:hover:text-blue transition`}
+              } w-full flex justify-between items-center hover:text-blue dark:hover:text-blue transition`}
               onClick={() => navigateToUrl("/blog")}
             >
-              Blog
+              <span>Blog</span>
+              <span>
+                <FontAwesomeIcon icon={faArrowRight} />
+              </span>
             </Link>
-            <span className="ml-auto">
-              <FontAwesomeIcon icon={faArrowRight} />
-            </span>
           </p>
-          <p className="border-b-2 border-gray-300 flex justify-between items-center">
+
+          {/* <p className="border-b-2 border-gray-300 flex justify-between items-center">
             <Link
               href={"/single-post"}
               className={`${
                 pathName === "/single-post"
                   ? "text-blue"
                   : "text-boldTextcolor dark:text-white"
-              } hover:text-blue dark:hover:text-blue transition`}
+              } w-full flex justify-between items-center hover:text-blue dark:hover:text-blue transition`}
               onClick={() => navigateToUrl("/single-post")}
             >
-              Single Post
+              <span>Single Post</span>
+              <span className="ml-auto">
+                <FontAwesomeIcon icon={faArrowRight} />
+              </span>
             </Link>
-            <span className="ml-auto">
-              <FontAwesomeIcon icon={faArrowRight} />
-            </span>
           </p>
+
           <p className="border-b-2 border-gray-300 flex justify-between items-center">
             <Link
               href={"/author-page"}
@@ -254,15 +257,16 @@ function Navbar({ onSignOut }) {
                 pathName === "/pages"
                   ? "text-blue"
                   : "text-boldTextcolor dark:text-white"
-              } hover:text-blue dark:hover:text-blue transition`}
+              } w-full flex justify-between items-center hover:text-blue dark:hover:text-blue transition`}
               onClick={() => navigateToUrl("/author-page")}
             >
-              Pages
+              <span>Pages</span>
+              <span className="ml-auto">
+                <FontAwesomeIcon icon={faArrowRight} />
+              </span>
             </Link>
-            <span className="ml-auto">
-              <FontAwesomeIcon icon={faArrowRight} />
-            </span>
-          </p>
+          </p> */}
+
           <p className="border-b-2 border-gray-300 flex justify-between items-center">
             <Link
               href={"/contact"}
@@ -270,14 +274,14 @@ function Navbar({ onSignOut }) {
                 pathName === "/contact"
                   ? "text-blue"
                   : "text-boldTextcolor dark:text-white"
-              } hover:text-blue dark:hover:text-blue transition`}
+              } w-full flex justify-between items-center hover:text-blue dark:hover:text-blue transition`}
               onClick={() => navigateToUrl("/contact")}
             >
-              Contact
+              <span>Contact</span>
+              <span className="ml-auto">
+                <FontAwesomeIcon icon={faArrowRight} />
+              </span>
             </Link>
-            <span className="ml-auto">
-              <FontAwesomeIcon icon={faArrowRight} />
-            </span>
           </p>
         </div>
       </nav>

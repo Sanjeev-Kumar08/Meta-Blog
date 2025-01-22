@@ -5,9 +5,9 @@ import Hero from "./components/HeroSection/Hero.js";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Hero/>
       <BlogList/>
-    </div>
+    </>
   );
 }

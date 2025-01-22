@@ -1,6 +1,6 @@
 "use client";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
@@ -83,7 +83,6 @@ export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
 
   const handleForgotPassword = () => {
     onForgotPasswordClick();
-    console.log("Forgot Password??");
   }
 
   return (

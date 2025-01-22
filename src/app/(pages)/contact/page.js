@@ -1,11 +1,8 @@
 "use client";
-import Input from "@/app/components/Input/Input";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleExclamation,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import Loader from "@/app/components/Loader/Loader";
 
 export default function ContactPage() {
   const [name, setName] = useState("");
@@ -13,37 +10,46 @@ export default function ContactPage() {
   const [message, setMessage] = useState("");
   const [messageSending, setMessageSending] = useState(false);
   const [isMessageSent, setIsMessageSent] = useState(false);
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setName("");
-    setEmail("");
-    setMessage("");
     setMessageSending(true);
     const data = { name, email, message };
     console.log("Form submitted:", data);
 
     try {
-      const response = await fetch("api/send-message", {
-        method: "POST",
-        credentials: "true",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: { data },
-      });
-
+      const response = await fetch(
+        "https://tunica-blogs-backend.onrender.com/api/auth/contact-us",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            message: message
+          })
+        }
+      );
       if (response.ok) {
         const data = await response.json();
+        console.log("DATA:::", data);
+        setName("");
+        setEmail("");
+        setMessage("");
+        setMessageSending(false);
         setIsMessageSent(true);
         setMessageSending(false);
-        setTimeout(()=>{
+
+        setTimeout(() => {
           setIsMessageSent(false);
-        }, 5000)
+        }, 5000);
       }
     } catch (error) {
-      console.error("ERROR:", response.statusText);
+      setMessageSending(false);
+      console.error("ERROR:", error);
     }
   };
 
@@ -59,7 +65,7 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="mt-8">  
+        <div className="mt-8">
           {/* Invalid Password */}
 
           {isMessageSent ? (
@@ -86,7 +92,7 @@ export default function ContactPage() {
               <div className="flex flex-col">
                 <label
                   htmlFor="name"
-                  className="text-gray-700 dark:text-[#ffffff] font-medium mb-2"
+                  className="text-gray-900 dark:text-[#ffffff] font-medium mb-2"
                 >
                   Your Name
                 </label>
@@ -95,7 +101,7 @@ export default function ContactPage() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  required
+                  // required
                   className="dark:bg-slate-700 dark:border-slate-700 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue focus:border-transparent"
                   placeholder="Enter your name"
                 />
@@ -105,7 +111,7 @@ export default function ContactPage() {
               <div className="flex flex-col">
                 <label
                   htmlFor="email"
-                  className="text-gray-700 dark:text-[#ffffff] font-medium mb-2"
+                  className="text-gray-900 dark:text-[#ffffff] font-medium mb-2"
                 >
                   Your Email
                 </label>
@@ -114,7 +120,7 @@ export default function ContactPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
+                  // required
                   className="dark:bg-slate-700 dark:border-slate-700 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue focus:border-transparent"
                   placeholder="Enter your email"
                 />
@@ -125,7 +131,7 @@ export default function ContactPage() {
             <div className="flex flex-col">
               <label
                 htmlFor="message"
-                className="text-gray-700  dark:text-[#ffffff] font-medium mb-2"
+                className="text-gray-900  dark:text-[#ffffff] font-medium mb-2"
               >
                 Your Message
               </label>
@@ -133,7 +139,7 @@ export default function ContactPage() {
                 id="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                required
+                // required
                 className="dark:bg-slate-700 dark:border-slate-700 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue focus:border-transparent"
                 rows="6"
                 placeholder="Write your message here"
@@ -147,23 +153,12 @@ export default function ContactPage() {
                 className="w-full bg-[#162D3A] dark:bg-blue text-center px-3 py-2 rounded-xl text-[#FFFFFF] text-[20px] font-Roboto"
               >
                 {messageSending ? (
-                  <div className="flex items-center justify-center">
-                    <div className="w-8 h-8 border-4 border-blue rounded-full animate-spin border-t-transparent"></div>
-                  </div>
+                  <Loader source={"contact"} className={"h-[30px] w-[30px]"} />
                 ) : (
                   "Send Message"
                 )}
               </button>
             </div>
-            {/* <div className="flex justify-center">
-              <button
-                type="submit"
-                aria-label="Send Message"
-                className="px-6 py-3 bg-blue text-white rounded-lg hover:bg-blue-600 transition duration-300"
-              >
-                Send Message
-              </button>
-            </div> */}
           </form>
         </div>
 

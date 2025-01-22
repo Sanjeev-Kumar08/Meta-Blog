@@ -38,7 +38,6 @@ function APP({ children }) {
   }, [userLogInStatus]);
 
   const handleSignOut = () => {
-    console.log("SignOut Clicked");
     Cookies.remove("authToken");
     dispatch(logOut());
     setIsLoggedIn(false);
@@ -55,7 +54,7 @@ function APP({ children }) {
 
   return (
     <>
-      <Navbar onSignOut={handleSignOut} />
+      <Navbar onSignOut={handleSignOut}/>
       {isLoggedIn ? 
       (
         <>
