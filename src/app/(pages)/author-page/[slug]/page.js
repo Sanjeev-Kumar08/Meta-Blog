@@ -40,7 +40,7 @@ export default function page({ params }) {
         console.log("User data is missing in the API response");
       }
     } catch (error) {
-      console.error("Error fetching blog post+++", error.message);
+      console.log("Error fetching blog post+++", error.message);
     }
   };
 

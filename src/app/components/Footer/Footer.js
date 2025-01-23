@@ -80,7 +80,7 @@ export default function Footer() {
               <Image
                 alt="mailbox icon"
                 src="/mailboxIcon.svg"
-                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
+                className="h-auto w-auto absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
                 height={10}
                 width={20}
               />
@@ -103,7 +103,7 @@ export default function Footer() {
             <Image
               alt="Meta Blog"
               src="/Union.svg"
-              className="h-[45px] dark:bg-white rounded-3xl dark:border-none"
+              className="dark:bg-white rounded-3xl dark:border-none"
               height={10}
               width={40}
             />

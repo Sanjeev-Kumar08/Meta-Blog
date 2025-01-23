@@ -14,7 +14,7 @@ function Hero() {
         h-[240px]
       ">
         <div className="sm426:h-[600px] rounded-xl max-h-fit">
-          <Image src="/Image.svg" alt="title card" height={600} width={1216}/>
+          <Image src="/Image.svg" alt="title card" priority height={600} width={1216}/>
           {/* <img src="/Image.svg" alt="title card" /> */}
         </div>
 

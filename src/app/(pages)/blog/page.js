@@ -29,8 +29,8 @@ export default function page() {
       
       <div className="flex justify-center items-center">
         <div className="w-[1216px] h-[450px] flex justify-center items-center m-4 rounded-lg overflow-hidden mb-10 font-worksans">
-          <div className="item-container w-full h-full object-cover relative">
-          <Image src="/Image.svg" alt="title card" height={600} width={1216} className="rounded-lg object-cover"/>
+          <div className="item-container w-full h-[450px] relative bg-red-100 overflow-cover">
+          <Image src="/Image.svg" alt="title card"  fill priority className="rounded-lg object-cover"/>
             {/* <img
               alt="Featured Image"
               src="/Image.svg"

@@ -8,7 +8,7 @@ export default async function RootLayout({ children }) {
       <head>
       <title>Meta Blog</title>
       <link rel="icon" href="/Union.svg"></link>
-      <link rel="preload" href="/Art.svg" as="image" type="image/svg+xml" />
+      {/* <link rel="preload" href="/Login-Art.webp" as="image"/> */}
       </head>
       <body>
         <ReduxProvider store={store} children={children}>
