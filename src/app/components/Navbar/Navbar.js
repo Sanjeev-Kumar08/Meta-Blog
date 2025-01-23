@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { usePathname, useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import SearchBar from "../SearchBar/SearchBar";
 import Link from "next/link";
 
@@ -26,7 +26,6 @@ function Navbar({ onSignOut, className }) {
   const userLogInStatus = useSelector((state) => state.auth.status);
 
   useEffect(() => {
-    // const token = localStorage.getItem("authToken");
     const token = Cookies.get("authToken");
     if (token) {
       setIsLoggedIn(true);
@@ -68,7 +67,7 @@ function Navbar({ onSignOut, className }) {
               <Image
                 src="/Union.svg"
                 alt="Logo"
-                className="h-8 w-8 dark:bg-white rounded-3xl dark:border-none"
+                className="h-auto w-auto dark:bg-white rounded-3xl dark:border-none"
                 height={20}
                 width={20}
               />

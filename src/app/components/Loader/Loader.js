@@ -1,6 +1,4 @@
 export default function Loader({ source, className }) {
-  console.log("Loader source:", source); // Debugging line
-  console.log("Loader className:", className); // Debugging line
 
   return (
     <div

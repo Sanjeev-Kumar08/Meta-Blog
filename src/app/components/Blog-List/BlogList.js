@@ -19,8 +19,6 @@ function BlogList() {
   );
   const blogs = useSelector((state) => state.reduxBlogPosts.blogs);
 
-  console.log("isBlogsAvailable", isBlogsAvailable);
-
   useEffect(() => {
     const fetchBlogs = async () => {
       try {

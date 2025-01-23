@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import ForgotPasswordPage from "@/app/(pages)/forgot-password/page";
 import OtpVerificationPage from "@/app/(pages)/otp-verification/page";
 import GenerateNewPasswordPage from "@/app/(pages)/generate-new-password/page";
+import { jwtDecode } from "jwt-decode";
 
 function APP({ children }) {
   const router = useRouter();
@@ -24,10 +25,15 @@ function APP({ children }) {
   useEffect(() => {
     const checkAuth = async () => {
       const token = Cookies.get("authToken");
+      const decodedToken = jwtDecode(token);
+      const expiryDate = new Date(decodedToken.exp * 1000);
+      const currentDate = new Date();
 
-      if (token) {
+      if (token && currentDate < expiryDate) {
+        // "JWT IS VALID"
         setIsLoggedIn(true);
       } else {
+        // "JWT IS Expired"
         setIsLoggedIn(false);
         router.push("/login");
       }
@@ -54,48 +60,36 @@ function APP({ children }) {
 
   return (
     <>
-      <Navbar onSignOut={handleSignOut}/>
-      {isLoggedIn ? 
-      (
+      <Navbar onSignOut={handleSignOut} />
+      {isLoggedIn ? (
         <>
           {children}
           <Footer />
         </>
-      ) 
-      : activePage === "login" ? 
-      (
+      ) : activePage === "login" ? (
         <LogInPage
           onSignUpClick={() => handlePageChange("signup")}
           onForgotPasswordClick={() => handlePageChange("forgot-password")}
         />
-      ) 
-      : activePage === "signup" ? 
-      (
+      ) : activePage === "signup" ? (
         <SignUpPage
           onLoginClick={() => setActivePage("login")}
           onForgotPasswordClick={() => handlePageChange("forgot-password")}
         />
-      ) 
-      : activePage === "forgot-password" ? 
-      (
+      ) : activePage === "forgot-password" ? (
         <ForgotPasswordPage
           onLogInClick={() => setActivePage("login")}
           goToOtpVerificationPage={() => setActivePage("otp-verification")}
         />
-      ) 
-      : activePage === "otp-verification" ? 
-      (
+      ) : activePage === "otp-verification" ? (
         <OtpVerificationPage
           goToGeneratePasswordPage={() =>
             setActivePage("generate-new-password")
           }
         />
-      ) 
-      : activePage === "generate-new-password" ? 
-      (
+      ) : activePage === "generate-new-password" ? (
         <GenerateNewPasswordPage goToLogInPage={() => setActivePage("login")} />
-      ) : 
-      (
+      ) : (
         <LogInPage
           onSignUpClick={() => handlePageChange("signup")}
           onForgotPasswordClick={() => handlePageChange("forgot-password")}

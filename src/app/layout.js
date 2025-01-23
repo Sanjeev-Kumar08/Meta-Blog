@@ -6,12 +6,12 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-      <title>Meta Blog</title>
-      <link rel="icon" href="/Union.svg"></link>
-      {/* <link rel="preload" href="/Login-Art.webp" as="image"/> */}
+        <title>Meta Blog</title>
+        <link rel="icon" href="/Union.svg"></link>
+        {/* <link rel="preload" href="/Login-Art.webp" as="image"/> */}
       </head>
       <body>
-        <ReduxProvider store={store} children={children}>
+        <ReduxProvider store={store}>
           {children}
         </ReduxProvider>
       </body>
@@ -20,7 +20,6 @@ export default async function RootLayout({ children }) {
         defer
         crossOrigin="anonymous"
         src="https://connect.facebook.net/en_US/sdk.js"
-        
       ></script>
     </html>
   );
