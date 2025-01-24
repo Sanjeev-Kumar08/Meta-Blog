@@ -17,7 +17,7 @@ export default function page({ params }) {
       const { slug } = await params;
       setBlogId(slug);
     })();
-  }, [slug]);
+  }, [params]);
   
   useEffect(() => {
     if (blogId) {
