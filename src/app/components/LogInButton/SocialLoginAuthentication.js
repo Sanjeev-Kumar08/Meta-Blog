@@ -40,7 +40,6 @@ function SocialLoginAuthentication({ setServerError }) {
       }
 
       const data = await response.json();
-      console.log('data:::' , data);
       if (data.success && data.token) {
         dispatch(
           logIn({
@@ -88,12 +87,10 @@ function SocialLoginAuthentication({ setServerError }) {
           if (window.FB) {
             window.FB.init({
               appId: "435169396230093",
-              // appId: "1314511789882590",
               cookie: true,
               xfbml: true,
               version: "v15.0",
             });
-            console.log("Facebook SDK loaded and initialized");
           }
         }
       })
@@ -112,7 +109,6 @@ function SocialLoginAuthentication({ setServerError }) {
         (response) => {
           if (response.authResponse) {
             const accessToken = response.authResponse.accessToken;
-            console.log("response", response);
 
             // Use fetch to send the access token
             (async () => {
@@ -134,7 +130,6 @@ function SocialLoginAuthentication({ setServerError }) {
                 }
 
                 const data = await res.json();
-                console.log("Login successful:", data);
                 if (data.message && data.token) {
                     dispatch(
                       logIn({

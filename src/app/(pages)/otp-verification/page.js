@@ -16,9 +16,7 @@ export default function OtpVerificationPage({ goToGeneratePasswordPage }) {
 
   const handleOTPSubmission = async (e) => {
     e.preventDefault();
-    console.log("OTP::", otp);
     dispatch(setUserOTP(otp));
-    console.log("emailFROMRedux", userEmail);
 
     try {
       setIsLoading(true);
@@ -39,9 +37,6 @@ export default function OtpVerificationPage({ goToGeneratePasswordPage }) {
 
       // Handle API Response
       const data = await response.json();
-      console.log("OTP", otp);
-      console.log("Response After Entering OTP::", response);
-      console.log("Data After Entering OTP::", data);
       if (response.ok) {
         if (data.success) {
           setIsLoading(false);

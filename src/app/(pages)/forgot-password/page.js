@@ -20,7 +20,6 @@ export default function ForgotPasswordPage({
     
     try {
       setIsLoading(true);
-      console.log("Reset Your Password Form is Submitted");
       const response = await fetch(
         "https://tunica-blogs-backend.onrender.com/api/forgetpassword/generate-otp",
         {
@@ -35,7 +34,6 @@ export default function ForgotPasswordPage({
       // Handle response
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         if (data.success) {
           setIsLoading(false);
           router.push("/otp-verification");

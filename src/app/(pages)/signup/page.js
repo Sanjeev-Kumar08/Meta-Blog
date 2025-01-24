@@ -27,10 +27,6 @@ export default function SignUpPage({ onLoginClick }) {
     e.preventDefault();
     setIsLogging(true);
 
-    // console.log("Name", name);
-    // console.log("Email", email);
-    // console.log("Password", password);
-
     try {
       const response = await fetch(
         "https://tunica-blogs-backend.onrender.com/api/auth/signup",
@@ -191,7 +187,7 @@ export default function SignUpPage({ onLoginClick }) {
           </div>
 
           {/* Image */}
-          <div className="sm426:h-[1076px] sm426:w-[48%] sm375:w-[360px] sm350:w-[320px] w-[300px] h-[180px] bg-white sm426:order-2 sm426:mt-0 order-1 mt-4 relative">
+          <div className="sm426:h-[1076px] sm426:w-[48%] sm375:w-[360px] sm350:w-[320px] w-[300px] h-[180px] sm426:order-2 sm426:mt-0 order-1 mt-4 relative">
             <Image
               src="/Login-Art.webp"
               fill
@@ -199,6 +195,7 @@ export default function SignUpPage({ onLoginClick }) {
               className="object-cover sm426:rounded-[24px]  rounded-[20px]"
               priority
               quality={75}
+              sizes="816px"
             />
           </div>
         </div>

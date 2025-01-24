@@ -11,7 +11,6 @@ const forgotPasswordSlice = createSlice({
     initialState,
     reducers: {
         setUserEmail : (state, action) => {
-            console.log(action.payload);
             state.email = action.payload
         },
         setUserOTP : (state, action) => {

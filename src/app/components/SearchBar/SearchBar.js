@@ -22,12 +22,6 @@ const SearchBar = () => {
     setFilteredData(data);
   };
 
-  useEffect(() => {
-    if (filteredData.length > 0) {
-      console.log("Filtered Data:", filteredData);
-    }
-  }, [filteredData]);
-
   const getSingleBlog = (id) => {
     setQuery("")
     router.push(`/single-post/${id}`)

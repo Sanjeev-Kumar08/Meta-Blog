@@ -41,7 +41,6 @@ export default function page({ params }) {
         );
       }
       const data = await response.json();
-      console.log('DATA+++',data);
       setBlog(data.blog);
       setBlogContent(data.blog.insideContent);
       setLoading(false);

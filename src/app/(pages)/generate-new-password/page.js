@@ -48,7 +48,6 @@ export default function GenerateNewPasswordPage({ goToLogInPage }) {
         );
         // Handle API Response
         const data = await response.json();
-        console.log(data);
         if (response.ok) {
           if (data.success) {
             setIsLoading(false);
@@ -68,8 +67,6 @@ export default function GenerateNewPasswordPage({ goToLogInPage }) {
       } catch (error) {
         console.error("ERROR:", error.message);
       }
-    } else {
-      console.log("Password does not match");
     }
   };
 

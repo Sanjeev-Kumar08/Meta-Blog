@@ -25,23 +25,35 @@ function APP({ children }) {
   useEffect(() => {
     const checkAuth = async () => {
       const token = Cookies.get("authToken");
-      const decodedToken = jwtDecode(token);
-      const expiryDate = new Date(decodedToken.exp * 1000);
-      const currentDate = new Date();
 
-      if (token && currentDate < expiryDate) {
-        // "JWT IS VALID"
-        setIsLoggedIn(true);
+      if (!token) {
+        handleInvalidToken();
       } else {
-        // "JWT IS Expired"
-        setIsLoggedIn(false);
-        router.push("/login");
+        try {
+          const decodedToken = jwtDecode(token);
+          const expiryDate = new Date(decodedToken.exp * 1000);
+          const currentDate = new Date();
+
+          if (currentDate < expiryDate) {
+            setIsLoggedIn(true); // Token is valid
+          } else {
+            handleInvalidToken(); // Token is expired
+          }
+        } catch (error) {
+          console.error("Error decoding token:", error);
+          handleInvalidToken();
+        }
       }
       setIsAuthenticating(false);
     };
 
     checkAuth();
   }, [userLogInStatus]);
+
+  const handleInvalidToken = () => {
+    setIsLoggedIn(false);
+    router.push("/login");
+  };
 
   const handleSignOut = () => {
     Cookies.remove("authToken");

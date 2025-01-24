@@ -15,7 +15,6 @@ export default function ContactPage() {
     e.preventDefault();
     setMessageSending(true);
     const data = { name, email, message };
-    console.log("Form submitted:", data);
 
     try {
       const response = await fetch(
@@ -35,7 +34,6 @@ export default function ContactPage() {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log("DATA:::", data);
         setName("");
         setEmail("");
         setMessage("");
