@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "@/app/components/Loader/Loader";
 import Image from "next/image";
-import Link from "next/link";
-
 
 export default function page({ params }) {
   const router = useRouter();
@@ -13,32 +11,31 @@ export default function page({ params }) {
   const [blog, setBlog] = useState();
   const [loading, setLoading] = useState(true);
   const [blogContent, setBlogContent] = useState([]);
-
+  
   useEffect(() => {
     (async () => {
       const { slug } = await params;
       setBlogId(slug);
     })();
-  }, [params]);
-
+  }, [slug]);
+  
   useEffect(() => {
     if (blogId) {
+      console.log("FETCH BLOGS");
       fetchBlogs(blogId);
     }
   }, [blogId]);
-
+  
   const fetchBlogs = async (blogId) => {
     try {
       const response = await fetch(
         `https://tunica-blogs-backend.onrender.com/api/blog/getblog/${blogId}`,
         {
-          credentials: 'include'
+          credentials: "include",
         }
       );
       if (!response.ok) {
-        throw new Error(
-          `Failed to fetch blog post: ${response.status} ${response.statusText}`
-        );
+        throw new Error(`Failed to fetch blog post: ${response.status}`);
       }
       const data = await response.json();
       setBlog(data.blog);
@@ -49,18 +46,19 @@ export default function page({ params }) {
     }
   };
 
+
   const formatDate = (date) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(date).toLocaleDateString("en-US", options);
   };
   const BlogCreatedDate = formatDate(blog?.createdAt);
-  
+
   const navigateToUserPage = (url) => {
     router.push(`/author-page/${url}`);
   };
 
   if (loading) {
-    return <Loader/>;
+    return <Loader />;
   }
   return (
     <section className="flex flex-col justify-center items-center my-10 pb-5">
@@ -78,17 +76,18 @@ export default function page({ params }) {
             {blog?.title}
           </h1>
           {/* author-info */}
-          <div
-            className="text-grey dark:text-white flex justify-center items-center w-fit gap-[24px] cursor-pointer"
-            onClick={() => navigateToUserPage(blogId)}
-          >
-            <div className="flex justify-center items-center gap-[8px]">
-              <img
+          <div className="text-grey dark:text-white flex justify-center items-center w-fit gap-[24px] cursor-pointer">
+            <div
+              className="flex justify-center items-center gap-[8px]"
+              onClick={() => navigateToUserPage(blogId)}
+            >
+              <Image
                 alt="user image"
                 src={blog.User.profilePic}
                 className="h-[28px] w-[28px] rounded-[28px]"
-                // height={50}
-                // width={50}
+                priority
+                height={50}
+                width={50}
               />
               <p>{blog.User.name}</p>
             </div>
@@ -101,8 +100,9 @@ export default function page({ params }) {
               alt="blog image"
               src={blog.image}
               className="w-full h-full object-cover rounded-xl"
-              width={600}  
+              width={600}
               height={600}
+              priority
             />
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function page({ params }) {
                       alt="image"
                       src={subBlog.images[index]}
                       className="w-full h-full object-cover rounded-xl"
-                      width={600}  
+                      width={600}
                       height={600}
                     />
                   </div>

@@ -32,7 +32,6 @@ export default function page({ params }) {
         );
       }
       const data = await response.json();
-
       if (data?.blog?.User) {
         setUser(data.blog.User);
         setLoading(false);
@@ -123,7 +122,7 @@ export default function page({ params }) {
 
               <Link
                 href={
-                  user?.socialLinks?.linkedin ? user?.socialLinks?.linkedin : ""
+                  user?.socialLinks?.youtube ? user?.socialLinks?.youtube : ""
                 }
               >
                 <div className="h-[32px] w-[32px] bg-grey rounded-md flex justify-center items-center cursor-pointer">
