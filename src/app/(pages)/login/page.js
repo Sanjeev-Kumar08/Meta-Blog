@@ -181,7 +181,7 @@ export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
               <button
                 aria-label="Sign in"
                 type="submit"
-                className="w-full bg-[#162D3A] dark:bg-blue text-center px-3 py-2 rounded-xl text-[#FFFFFF] text-[20px] font-Roboto"
+                className="w-full bg-[#162D3A] dark:bg-blue text-center px-3 py-2 rounded-[12px] text-[#FFFFFF] text-[20px] font-Roboto"
               >
                 {isLogging ? (
                   <div className="flex items-center justify-center">

@@ -28,7 +28,7 @@ export default function Input({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className="min-w-full px-3 py-2 border border-[#D4D7E3] rounded-[12px] text-sm text-gray-600 bg-[#F3F9FA] placeholder-gray-400 focus:border-blue-500 focus:outline-blue "
+          className="min-w-full px-3 py-2 border border-[#D4D7E3] rounded-[12px] text-sm text-gray-600 bg-[#F3F9FA] placeholder-gray-400 focus:ring-2 focus:ring-blue focus:outline-none"
           {...props}
           required
         />

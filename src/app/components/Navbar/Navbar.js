@@ -211,7 +211,7 @@ function Navbar({ onSignOut, className }) {
               } hover:text-blue dark:hover:text-blue transition flex w-full justify-between items-center`}
               onClick={() => navigateToUrl("/")}
             >
-              <span>Home</span>
+              <span>Home</span>r
               <span>
                 <FontAwesomeIcon icon={faArrowRight} />
               </span>
@@ -226,7 +226,7 @@ function Navbar({ onSignOut, className }) {
                   ? "text-blue"
                   : "text-boldTextcolor dark:text-white"
               } w-full flex justify-between items-center hover:text-blue dark:hover:text-blue transition`}
-              onClick={() => navigateToUrl("/blog")}
+              // onClick={() => navigateToUrl("/blog")}
             >
               <span>Blog</span>
               <span>
