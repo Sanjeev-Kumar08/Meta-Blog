@@ -88,7 +88,7 @@ export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
-      <section className="sm426:h-[1076px] w-full my-5">
+      <section className="sm426:h-[1076px] w-full sm426:my-5">
         <div className="flex justify-center items-center sm426:gap-x-4 sm426:flex-row flex-col gap-[27px]">
           {/* Form */}
           <div className="sm426:order-1 sm426:h-[1076px] sm426:w-[48%] flex flex-col justify-center items-center gap-[28px] sm426:relative order-2 w-full sm350:px-0 px-2">
@@ -161,7 +161,7 @@ export default function LogInPage({ onSignUpClick, onForgotPasswordClick }) {
 
               <Input
                 label="Password"
-                type="text"
+                type="password"
                 placeholder="At least 8 characters"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

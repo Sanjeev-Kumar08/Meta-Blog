@@ -8,7 +8,7 @@ function SocialLoginAuthentication({ setServerError }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-  
+
   useEffect(() => {
     if (typeof window !== "undefined" && window.google) {
       window.google.accounts.id.initialize({
@@ -131,19 +131,19 @@ function SocialLoginAuthentication({ setServerError }) {
 
                 const data = await res.json();
                 if (data.message && data.token) {
-                    dispatch(
-                      logIn({
-                        token: data?.token,
-                        userFound: data?.userData,
-                      })
-                    );
-                    router.push("/");
-                  } else if (data.error === "Internal server error") {
-                    setServerError(true);
-                    setTimeout(() => {
-                      setServerError(false);
-                    }, 5000);
-                  }
+                  dispatch(
+                    logIn({
+                      token: data?.token,
+                      userFound: data?.userData,
+                    })
+                  );
+                  router.push("/");
+                } else if (data.error === "Internal server error") {
+                  setServerError(true);
+                  setTimeout(() => {
+                    setServerError(false);
+                  }, 5000);
+                }
               } catch (error) {
                 console.error("Error during Facebook login:", error.message);
               }
@@ -152,13 +152,13 @@ function SocialLoginAuthentication({ setServerError }) {
             console.error("User cancelled login or did not fully authorize.");
           }
         },
-        { scope: "email,public_profile" } 
+        { scope: "email,public_profile" }
       );
     }
   };
 
   return (
-    <div className="sm426:max-w-[388px] w-full sm426:w-full sm375:w-[360px] sm350:w-[320px] sm426:space-y-4 font-Roboto text-[16px] text-[#313957] sm350:px-0 px-2 sm426:block flex justify-between items-center">
+    <div className="sm426:max-w-[388px] w-full sm426:w-full sm375:w-[360px] sm350:w-[320px] sm426:space-y-4 font-Roboto text-[16px] text-[#313957] sm350:px-0 px-2 sm426:block flex justify-between items-center gap-4">
       <SocialLogInButton
         type="google"
         onLoginSuccess={handleGoogleLoginSuccess}
