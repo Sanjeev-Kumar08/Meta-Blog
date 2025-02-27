@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect } from "react";
 
 export default function PostCard({
   category,
@@ -9,6 +10,9 @@ export default function PostCard({
   featuredImage,
   onClick,
 }) {
+  useEffect(() => {
+    console.log(User);
+  });
   const formatDate = (date) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(date).toLocaleDateString("en-US", options);
@@ -36,7 +40,7 @@ export default function PostCard({
             alt="featured image"
             src={featuredImage}
             className="rounded-md w-full h-full object-cover group-hover:scale-[1.05] transition-all duration-500"
-            width={500}  
+            width={500}
             height={500}
             priority
           />
@@ -54,13 +58,16 @@ export default function PostCard({
             </h3>
           </div>
           <div className="text-[#97989F] flex items-center gap-[12px] text-center sm:text-[16px] font-worksans font-normal">
-            <Image
-              alt="user image"
-              src={User?.profilePic}
-              className="h-[36px] w-[36px] rounded-[28px]"
-              height={36}
-              width={36}
-            />
+            {User.profilePic && (
+              <Image
+                alt="user image"
+                src={User.profilePic}
+                className="h-[36px] w-[36px] rounded-[28px]"
+                height={36}
+                width={36}
+              />
+            )}
+
             <p>{User?.name}</p>
             <p>{formattedDate}</p>
           </div>

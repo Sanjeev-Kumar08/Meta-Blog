@@ -211,7 +211,7 @@ function Navbar({ onSignOut, className }) {
               } hover:text-blue dark:hover:text-blue transition flex w-full justify-between items-center`}
               onClick={() => navigateToUrl("/")}
             >
-              <span>Home</span>r
+              <span>Home</span>
               <span>
                 <FontAwesomeIcon icon={faArrowRight} />
               </span>

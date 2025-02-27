@@ -11,21 +11,21 @@ export default function page({ params }) {
   const [blog, setBlog] = useState();
   const [loading, setLoading] = useState(true);
   const [blogContent, setBlogContent] = useState([]);
-  
+
   useEffect(() => {
     (async () => {
       const { slug } = await params;
       setBlogId(slug);
     })();
   }, [params]);
-  
+
   useEffect(() => {
     if (blogId) {
       console.log("FETCH BLOGS");
       fetchBlogs(blogId);
     }
   }, [blogId]);
-  
+
   const fetchBlogs = async (blogId) => {
     try {
       const response = await fetch(
@@ -38,6 +38,7 @@ export default function page({ params }) {
         throw new Error(`Failed to fetch blog post: ${response.status}`);
       }
       const data = await response.json();
+      console.log("data++", data);
       setBlog(data.blog);
       setBlogContent(data.blog.insideContent);
       setLoading(false);
@@ -45,7 +46,6 @@ export default function page({ params }) {
       console.log("Error fetching blog post:", error.message);
     }
   };
-
 
   const formatDate = (date) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -81,14 +81,16 @@ export default function page({ params }) {
               className="flex justify-center items-center gap-[8px]"
               onClick={() => navigateToUserPage(blogId)}
             >
-              <Image
-                alt="user image"
-                src={blog.User.profilePic}
-                className="h-[28px] w-[28px] rounded-[28px]"
-                priority
-                height={50}
-                width={50}
-              />
+              {blog.User.profilePic && (
+                <Image
+                  alt="user image"
+                  src={blog.User.profilePic}
+                  className="h-[28px] w-[28px] rounded-[28px]"
+                  priority
+                  height={50}
+                  width={50}
+                />
+              )}
               <p>{blog.User.name}</p>
             </div>
             <p>{BlogCreatedDate}</p>
