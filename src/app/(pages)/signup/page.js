@@ -64,9 +64,17 @@ export default function SignUpPage({ onLoginClick }) {
         setAccountAlreadyExists(true);
       } else {
         console.log("Error:", response.status);
+        setServerError(true);
+        setTimeout(() => {
+          setServerError(false);
+        }, 5000);
       }
     } catch (error) {
       console.error("Request failed:", error);
+      setServerError(true);
+      setTimeout(() => {
+        setServerError(false);
+      }, 5000);
     }
   };
 
@@ -166,7 +174,7 @@ export default function SignUpPage({ onLoginClick }) {
             </div>
 
             {/* Google and Facebook Buttons */}
-            <SocialLoginAuthentication />
+            <SocialLoginAuthentication setServerError={setServerError} />
 
             <div className="font-Roboto text-[16px] mt-5 break-words">
               <p className="text-[#313957]">

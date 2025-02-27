@@ -56,6 +56,10 @@ function SocialLoginAuthentication({ setServerError }) {
       }
     } catch (error) {
       console.log("Error during login:", error.message || error);
+      setServerError(true);
+      setTimeout(() => {
+        setServerError(false);
+      }, 5000);
     }
   };
 
@@ -146,6 +150,10 @@ function SocialLoginAuthentication({ setServerError }) {
                 }
               } catch (error) {
                 console.error("Error during Facebook login:", error.message);
+                setServerError(true);
+                setTimeout(() => {
+                  setServerError(false);
+                }, 5000);
               }
             })();
           } else {
